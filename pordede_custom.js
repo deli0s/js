@@ -145,7 +145,7 @@ function addIMDB(enlace,child_peli){
 }
 function addLinks(nom,child_peli){
 	var a_link=document.createElement("a");
-	var linkText=document.createTextNode("links");
+	var linkText=document.createTextNode('<i class="icon-external-link"></i>');
 	a_link.appendChild(linkText);
 	a_link.setAttribute('href','/links/view/slug/'+nom+'/what/peli');
 	a_link.setAttribute('class','linky-winky');
@@ -159,7 +159,7 @@ function addLinks(nom,child_peli){
 	a_link.style.color="#000";
 	a_link.style.background="#fff";
 	a_link.style.display="inline-block";
-	a_link.style.padding="4px 0 2px 0px";
+	a_link.style.padding="4px 2px 2px 4px";
 	a_link.style.width="28px";
 	a_link.style.top="18px";
 	a_link.style.position="absolute";

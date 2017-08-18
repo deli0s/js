@@ -144,7 +144,9 @@ function addPirate(nom,child){
 	a_Pirate.style.zIndex="1";
 	a_Pirate.appendChild(img_P);
 	a_Pirate.setAttribute('target','_blank');
-	a_Pirate.setAttribute('href',thepiratebay+nom.replace(/-/g,"%20"));
+	var link_s=thepiratebay+nom.replace(/'s/g,"s");
+	var link_=link_s.replace(/-/g,"%20");
+	a_Pirate.setAttribute('href',link_);
 	child.insertBefore(a_Pirate,child.lastChild);
 }
 function buttonDown(){

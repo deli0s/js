@@ -1,16 +1,16 @@
 function edit(){
 	if (window.location.href.indexOf("subscriptions") > -1){
-		var videos=document.getElementsByClassName("yt-shelf-grid-item");
+		var videos=document.getElementsByTagName("ytd-grid-video-renderer");
 		if (existeix(videos)){
 			var size_videos=videos.length;
 			for (var i_video=0; i_video<size_videos; i_video++){
 				var video=videos[i_video];
 				if (existeix(video)){
-					var watched=video.getElementsByClassName("resume-playback-progress-bar")[0];
-					if (existeix(watched) || t_(video,"Late Motiv","Broncano,Romero,ignatius") || t_(video,"TERRAT","NADIE SABE NADA") || t_(video,"manga","Titan") || t_(video,"Oh! My LOL","Moderna ") || t_(video,"Jimmy Fallon","Hashtags") || t_(video,"WIRED","Answer the Web") || t_(video,"Pazos64","Cuidao Ahí")){
+					var watched=video.getElementsByClassName("ytd-thumbnail-overlay-resume-playback-renderer")[0];
+					/*if (existeix(watched) || t_(video,"Late Motiv","Broncano,Romero,ignatius") || t_(video,"TERRAT","NADIE SABE NADA") || t_(video,"manga","Titan") || t_(video,"Oh! My LOL","Moderna ") || t_(video,"Jimmy Fallon","Hashtags") || t_(video,"WIRED","Answer the Web") || t_(video,"Pazos64","Cuidao Ahí")){
 						deleteByClass("yt-shelf-grid-item",i_video);
 						i_video--;
-					}
+					}*/t_(i_video,video,"Late Motiv","Broncano,Romero,ignatius");
 				//console.log(i_video);
 				}
 			}
@@ -18,7 +18,7 @@ function edit(){
 	}
 }
 
-function t_(video,title_str,h3_array){//title
+function t_(i_video,video,title_str,h3_array){//title
 	var title_=video.getElementsByTagName("a")[2];
 	var h3_=video.getElementsByTagName("h3")[0];
 	var title_2=(title_.innerHTML.toLowerCase().indexOf(title_str.toLowerCase())>-1);

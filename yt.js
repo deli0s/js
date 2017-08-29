@@ -1,6 +1,7 @@
 function edit(){
 	if (window.location.href.indexOf("subscriptions") > -1){
-		var videos=document.getElementsByTagName("ytd-grid-video-renderer");
+		var video_str="ytd-grid-video-renderer";
+		var videos=document.getElementsByTagName(video_str);
 		if (existeix(videos)){
 			var size_videos=videos.length;
 			for (var i_video=0; i_video<size_videos; i_video++){
@@ -8,8 +9,7 @@ function edit(){
 				if (existeix(video)){
 					var watched=video.getElementsByClassName("ytd-thumbnail-overlay-resume-playback-renderer")[0];
 					if (existeix(watched) || t_(video,"Late Motiv","Broncano,Berto,Romero,ignatius") || t_(video,"TERRAT","NADIE SABE NADA") || t_(video,"manga","Titan") || t_(video,"Oh! My LOL","Moderna ") || t_(video,"Jimmy Fallon","Hashtags") || t_(video,"WIRED","Answer the Web") || t_(video,"Pazos64","Cuidao Ahí")){
-						deleteByClass("yt-shelf-grid-item",i_video);
-						//i_video--;
+						if (deleteByTag(video_str,i_video)) i_video--;
 					}
 				//console.log(i_video);
 				}
@@ -42,12 +42,14 @@ function existeix(nom){
 	return (nom!==undefined && nom!==null);
 }
 
-function deleteByClass(nom,num){
-	var childClass=document.getElementsByClassName(nom)[num];
+function deleteByTag(nom,num){
+	var childClass=document.getElementsByTagName(nom)[num];
     if (existeix(childClass)){
         var pareClass=childClass.parentNode;
         pareClass.removeChild(childClass);
+		return true;
     }
+	return false;
 }
 
 edit();

@@ -7,9 +7,9 @@ function edit(){
 				var video=videos[i_video];
 				if (existeix(video)){
 					var watched=video.getElementsByClassName("ytd-thumbnail-overlay-resume-playback-renderer")[0];
-					if (existeix(watched) || t_(video,"Late Motiv","Broncano,Romero,ignatius") || t_(video,"TERRAT","NADIE SABE NADA") || t_(video,"manga","Titan") || t_(video,"Oh! My LOL","Moderna ") || t_(video,"Jimmy Fallon","Hashtags") || t_(video,"WIRED","Answer the Web") || t_(video,"Pazos64","Cuidao Ahí")){
+					if (existeix(watched) || t_(video,"Late Motiv","Broncano,Berto,Romero,ignatius") || t_(video,"TERRAT","NADIE SABE NADA") || t_(video,"manga","Titan") || t_(video,"Oh! My LOL","Moderna ") || t_(video,"Jimmy Fallon","Hashtags") || t_(video,"WIRED","Answer the Web") || t_(video,"Pazos64","Cuidao Ahí")){
 						deleteByClass("yt-shelf-grid-item",i_video);
-						i_video--;
+						//i_video--;
 					}
 				//console.log(i_video);
 				}

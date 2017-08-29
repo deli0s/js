@@ -18,7 +18,7 @@ function edit(){
 	}
 }
 
-function t_(i_video,video,title_str,h3_array){//title
+function t_(video,title_str,h3_array){//title
 	var title_=video.getElementsByTagName("a")[2];
 	var h3_=video.getElementsByTagName("h3")[0];
 	var title_2=(title_.innerHTML.toLowerCase().indexOf(title_str.toLowerCase())>-1);

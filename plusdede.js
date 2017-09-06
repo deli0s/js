@@ -42,43 +42,48 @@ function edit(){
 				a_title.href="/pelis/pending";
 			}
 		}
+		var my_file_small=document.getElementsByClassName("my-file-small")[0];
+		if (existeix(my_file_small)){
+			my_file_small.style.border="none";
+		}
 	}
-	getDirectLink();
-	buttonDown();
-}
-function getDirectLink(){
 	var logIn_page=document.getElementsByClassName("page-login")[0];
 	if (!existeix(logIn_page) && (window.location.href.endsWith(".com/") || window.location.href.endsWith(".com"))){
-		var links=document.getElementsByClassName("directLink");
-		var series=document.getElementsByClassName("media-title");
-		var s_size=series.length;
-		if (links.length<s_size){
-			for (var i=0;i<s_size;i++){
-				var s_i=series[i];
-				var s_text=s_i.innerHTML;
-				var s_season=s_text.substring(0,s_text.indexOf("x"));//nº season
-				var s_ep_str=s_text.replace(s_season+"x","");
-				var s_space=s_ep_str.indexOf(" ");
-				var s_ep=Number(s_ep_str.substr(0,s_space));//nº ep
-				var s_ep2=String(s_ep);
-				if (s_ep<10) s_ep2="0"+String(s_ep);
-				var s_season2=String(s_season);
-				if (s_season<10) s_season2=String("0"+s_season);
-				var s_name=s_text.replace(s_season+"x"+s_ep2+" ","");//serie name
-				var _pirates=document.getElementsByClassName("pirate");
-				if (_pirates.length<s_size) addPirate(s_name+"%20s"+s_season2+"e"+s_ep2,document.getElementsByClassName("media-container")[i]);
-				var full_name=s_name+s_season2+"x"+s_ep2;
-				var link_=getCookie(full_name);
-				if (link_===""){
-					var s_parent=s_i.parentNode;
-					var href_=s_parent.href;
-					getLink(href_,full_name,s_season,s_ep);
-				}
-				if (link_!==""){
-					var _pos=document.getElementsByClassName("media-container")[i];
-					var _done=_pos.getElementsByClassName("directLink")[0];
-					if (!existeix(_done)) addDirectLink("/aportes/8/"+link_,_pos);
-				}
+		getDirectLink();
+	}else{
+		buttonDown();
+	}
+}
+function getDirectLink(){
+	var links=document.getElementsByClassName("directLink");
+	var series=document.getElementsByClassName("media-title");
+	var s_size=series.length;
+	if (links.length<s_size){
+		for (var i=0;i<s_size;i++){
+			var s_i=series[i];
+			var s_text=s_i.innerHTML;
+			var s_season=s_text.substring(0,s_text.indexOf("x"));//nº season
+			var s_ep_str=s_text.replace(s_season+"x","");
+			var s_space=s_ep_str.indexOf(" ");
+			var s_ep=Number(s_ep_str.substr(0,s_space));//nº ep
+			var s_ep2=String(s_ep);
+			if (s_ep<10) s_ep2="0"+String(s_ep);
+			var s_season2=String(s_season);
+			if (s_season<10) s_season2=String("0"+s_season);
+			var s_name=s_text.replace(s_season+"x"+s_ep2+" ","");//serie name
+			var _pirates=document.getElementsByClassName("pirate");
+			if (_pirates.length<s_size) addPirate(s_name+"%20s"+s_season2+"e"+s_ep2,document.getElementsByClassName("media-container")[i]);
+			var full_name=s_name+s_season2+"x"+s_ep2;
+			var link_=getCookie(full_name);
+			if (link_===""){
+				var s_parent=s_i.parentNode;
+				var href_=s_parent.href;
+				getLink(href_,full_name,s_season,s_ep);
+			}
+			if (link_!==""){
+				var _pos=document.getElementsByClassName("media-container")[i];
+				var _done=_pos.getElementsByClassName("directLink")[0];
+				if (!existeix(_done)) addDirectLink("/aportes/8/"+link_,_pos);
 			}
 		}
 	}

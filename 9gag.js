@@ -1,6 +1,6 @@
 function edit(){
 	var h2=document.getElementsByTagName("h2")[0];
-	if (existeix(h2)){
+	if (existeix(h2) && (window.location.href.endsWith(".com") || window.location.href.endsWith(".com/") || window.location.href.endsWith("hot"))){
 		var link_=getCookie("TrashMe");
 		if (link_===""){
 			addTrash(h2);

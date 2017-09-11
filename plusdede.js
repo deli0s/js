@@ -50,6 +50,7 @@ function edit(){
 	var logIn_page=document.getElementsByClassName("page-login")[0];
 	if (!existeix(logIn_page) && (window.location.href.endsWith(".com/") || window.location.href.endsWith(".com"))){
 		getDirectLink();
+		moveCalendar();
 	}else{
 		buttonDown();
 	}
@@ -195,6 +196,46 @@ function buttonDown(){
 }
 function existeix(nom){
 	return (nom!==undefined && nom!==null);
+}
+function moveCalendar(){
+	var childs=document.getElementsByClassName("content")[0];
+	if (existeix(childs)){
+		var mini_title=childs.getElementsByClassName("mini-title")[0];
+		if (existeix(mini_title)){
+			var mini_title_mT=mini_title.style.marginTop;
+			if (mini_title_mT!=="-5px"){
+				var l_childs=childs.childNodes.length;
+				var i_cal=10;
+				var _break=false;
+				while (i_cal<l_childs && !_break){
+					var _node=childs.childNodes[i_cal];
+					if (existeix(_node)){
+						var className=_node.className;
+						if (existeix(className)){
+							if (className.indexOf("calendar")>-1){
+								_break=true;
+							}else{
+								deleteMe(_node);
+								i_cal--;
+							}
+						}
+					}
+					i_cal++;
+				}
+			}
+			mini_title.style.marginTop="-5px";
+			var calendar_title=childs.getElementsByClassName("calendar-title pull-left")[0];
+			if (existeix(calendar_title)){
+				calendar_title.style.marginTop="-5px";
+			}
+		}
+	}
+}
+function deleteMe(child){
+    if (existeix(child)){
+        var pareC=child.parentNode;
+        pareC.removeChild(child);
+    }
 }
 function deleteById(nom){
 	var childAdv=document.getElementById(nom);

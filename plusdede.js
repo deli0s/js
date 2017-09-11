@@ -228,6 +228,10 @@ function moveCalendar(){
 			if (existeix(calendar_title)){
 				calendar_title.style.marginTop="-5px";
 			}
+			var calendar_buttons=childs.getElementsByClassName("calendar-buttons pull-right")[0];
+			if (existeix(calendar_buttons)){
+				calendar_buttons.style.marginTop="-5px";
+			}
 		}
 	}
 }

@@ -204,33 +204,33 @@ function moveCalendar(){
 		if (existeix(mini_title)){
 			var mini_title_mT=mini_title.style.marginTop;
 			if (mini_title_mT!=="-5px"){
+				mini_title.style.marginTop="-5px";
+				var calendar_title=childs.getElementsByClassName("calendar-title pull-left")[0];
+				if (existeix(calendar_title)){
+					calendar_title.style.marginTop="-5px";
+				}
+				var calendar_buttons=childs.getElementsByClassName("calendar-buttons pull-right")[0];
+				if (existeix(calendar_buttons)){
+					calendar_buttons.style.marginTop="-5px";
+				}
+				var calendar_view=childs.getElementsByClassName("view-all-link")[0];
+				if (existeix(calendar_view)){
+					calendar_view.style.marginTop="-5px";
+				}
 				var l_childs=childs.childNodes.length;
-				var i_cal=10;
-				var _break=false;
-				while (i_cal<l_childs && !_break){
+				for (var i_cal=1;i_cal<l_childs;i_cal+=2){
 					var _node=childs.childNodes[i_cal];
 					if (existeix(_node)){
 						var className=_node.className;
 						if (existeix(className)){
-							if (className.indexOf("calendar")>-1){
-								_break=true;
-							}else{
+							var class_mT=_node.style.marginTop;
+							if (className.indexOf("calendar")===-1 && (className!=="view-all-link" || (className=="view-all-link" && class_mT!=="-5px")) && (className!=="mini-title" || (className=="mini-title" && class_mT!=="-5px")) && className!=="cal-context" && className!=="pending-list media-container-all"){
 								deleteMe(_node);
 								i_cal--;
 							}
 						}
 					}
-					i_cal++;
 				}
-			}
-			mini_title.style.marginTop="-5px";
-			var calendar_title=childs.getElementsByClassName("calendar-title pull-left")[0];
-			if (existeix(calendar_title)){
-				calendar_title.style.marginTop="-5px";
-			}
-			var calendar_buttons=childs.getElementsByClassName("calendar-buttons pull-right")[0];
-			if (existeix(calendar_buttons)){
-				calendar_buttons.style.marginTop="-5px";
 			}
 		}
 	}

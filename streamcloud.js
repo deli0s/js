@@ -1,4 +1,4 @@
-if (window.location.href.length>=59){
+if (window.location.href.indexOf("html")>-1){
 	if (document.getElementsByClassName("orange msgboxinfo").length>0 || document.getElementsByTagName("title")[0].innerHTML.indexOf("502 Bad Gateway")>-1){
 		borra();
 		setTimeout(function (){

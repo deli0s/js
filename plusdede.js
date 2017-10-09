@@ -197,7 +197,38 @@ function buttonDown(){
 function existeix(nom){
 	return (nom!==undefined && nom!==null);
 }
+function toggleCalendar(display){
+	var row=document.getElementsByClassName("cal-row-fluid cal-before-eventlist");
+	var row_size=row.length;
+	var i=0;
+	var trobat=false;
+	while (i<row_size && !trobat){
+		var today=row[i].getElementsByClassName("cal-day-today")[0];
+		trobat=existeix(today);
+		if (!trobat){
+			row[i].style.display=display;
+		}
+		i++;
+	}
+}
+function hideCalendar(){
+	toggleCalendar("none");
+	var title=document.getElementsByClassName("calendar-title pull-left")[0];
+	var in_cal=document.createElement("input");
+	in_cal.type="checkbox";
+	in_cal.style.marginLeft="15px";
+	in_cal.checked=true;
+	in_cal.onclick=function(){
+		if (in_cal.checked){
+			toggleCalendar("none");
+		}else{
+			toggleCalendar("block");
+		}
+	};
+	title.appendChild(in_cal);
+}
 function moveCalendar(){
+	hideCalendar();
 	var childs=document.getElementsByClassName("content")[0];
 	if (existeix(childs)){
 		var mini_title=childs.getElementsByClassName("mini-title")[0];

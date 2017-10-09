@@ -212,20 +212,24 @@ function toggleCalendar(display){
 	}
 }
 function hideCalendar(){
-	toggleCalendar("none");
-	var title=document.getElementsByClassName("calendar-title pull-left")[0];
-	var in_cal=document.createElement("input");
-	in_cal.type="checkbox";
-	in_cal.style.marginLeft="15px";
-	in_cal.checked=true;
-	in_cal.onclick=function(){
-		if (in_cal.checked){
-			toggleCalendar("none");
-		}else{
-			toggleCalendar("block");
-		}
-	};
-	title.appendChild(in_cal);
+	var _toggleCalendar=document.getElementById("_toggleCalendar");
+	if (!existeix(_toggleCalendar)){
+		toggleCalendar("none");
+		var title=document.getElementsByClassName("calendar-title pull-left")[0];
+		var in_cal=document.createElement("input");
+		in_cal.type="checkbox";
+		in_cal.id="_toggleCalendar";
+		in_cal.style.marginLeft="15px";
+		in_cal.checked=true;
+		in_cal.onclick=function(){
+			if (in_cal.checked){
+				toggleCalendar("none");
+			}else{
+				toggleCalendar("block");
+			}
+		};
+		title.appendChild(in_cal);
+	}
 }
 function moveCalendar(){
 	hideCalendar();

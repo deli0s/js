@@ -60,6 +60,7 @@ function edit(){
 	}
 }
 function addSolver(){
+	var captcha=document.getElementsByClassName("col-xs-12")[2];
 	/*var unlock=document.getElementById("unlock");
 	if (!existeix(unlock)){
 		var _a=document.createElement("a");
@@ -71,7 +72,6 @@ function addSolver(){
 		_a.onclick=function(){
 			breakCaptcha();
 		};
-		var captcha=document.getElementsByClassName("col-xs-12")[2];
 		captcha.appendChild(_a);
 	}*/
 	var segmentacao=document.getElementById("segmentacao");

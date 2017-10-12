@@ -48,12 +48,75 @@ function edit(){
 		}
 	}
 	var logIn_page=document.getElementsByClassName("page-login")[0];
-	if (!existeix(logIn_page) && (window.location.href.endsWith(".com/") || window.location.href.endsWith(".com"))){
-		getDirectLink();
-		moveCalendar();
+	if (!existeix(logIn_page)){
+		if ((window.location.href.endsWith(".com/") || window.location.href.endsWith(".com"))){
+			getDirectLink();
+			moveCalendar();
+		}else{
+			buttonDown();
+		}
 	}else{
-		buttonDown();
+		//addSolver();
 	}
+}
+function addSolver(){
+	/*var unlock=document.getElementById("unlock");
+	if (!existeix(unlock)){
+		var _a=document.createElement("a");
+		var _a_i=document.createElement("i");
+		_a_i.className="fa fa-unlock";
+		_a.appendChild(_a_i);
+		_a.id="unlock";
+		_a.style.cursor="pointer";
+		_a.onclick=function(){
+			breakCaptcha();
+		};
+		var captcha=document.getElementsByClassName("col-xs-12")[2];
+		captcha.appendChild(_a);
+	}*/
+	breakCaptcha();
+	var segmentacao=document.getElementById("segmentacao");
+	if (!existeix(segmentacao)){
+		var _canvas=document.createElement("canvas");
+		_canvas.id="segmentacao";
+		_canvas.style.width="300px";
+		_canvas.style.height="80px";
+		captcha.appendChild(_canvas);
+	}
+}
+function breakCaptcha(){
+	var captcha=document.getElementsByClassName("col-xs-12")[2].getElementsByTagName("img")[0];
+	var segmentacao=document.getElementById("segmentacao");
+	var canvas = segmentacao;
+	var ctx = canvas.getContext('2d');
+	ctx.drawImage(captcha, 0, 0);
+
+	var pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+	var d = pixels.data;
+	for (var i = 0; i < d.length; i += 4){
+		var r = d[i];
+		var g = d[i + 1];
+		var b = d[i + 2];
+		var v = 0;
+
+		//Extract only gray pixels
+		//Filter darker pixels (<100)
+		var diff = Math.abs(r - g) + Math.abs(r - b) + Math.abs(g - b);
+		var isGray = diff <= 30 && r > 100;
+		//var isGray = Math.abs(r - g) <= 5 && Math.abs(r - b) <= 5 && Math.abs(g - b) <= 5;
+
+		var color = isGray ? 255 : 0;
+		d[i] = d[i + 1] = d[i + 2] = color;
+	}
+
+	ctx.putImageData(pixels, 0, 0);
+
+	//GOCR is a library for OCR
+	//In this simple captchas it is enough
+	var text = GOCR(segmentacao);
+	var _input=document.getElementById("input-captcha");
+	_input.value = text.toUpperCase();
 }
 function getDirectLink(){
 	var links=document.getElementsByClassName("directLink");
@@ -232,11 +295,11 @@ function hideCalendar(){
 	}
 }
 function moveCalendar(){
-	hideCalendar();
 	var childs=document.getElementsByClassName("content")[0];
 	if (existeix(childs)){
 		var mini_title=childs.getElementsByClassName("mini-title")[0];
 		if (existeix(mini_title)){
+			hideCalendar();
 			var mini_title_mT=mini_title.style.marginTop;
 			if (mini_title_mT!=="-5px"){
 				mini_title.style.marginTop="-5px";

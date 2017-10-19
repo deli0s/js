@@ -213,7 +213,8 @@ function addPirate(nom,child){
 	a_Pirate.style.zIndex="1";
 	a_Pirate.appendChild(img_P);
 	a_Pirate.setAttribute('target','_blank');
-	var link_s=thepiratebay+nom.replace(/'s/g,"s");
+	var link_s0=thepiratebay+nom.replace(/'s/g,"s");
+	var link_s=link_s0.replace(/./g,"");
 	var link_=link_s.replace(/-/g,"%20");
 	a_Pirate.setAttribute('href',link_);
 	child.insertBefore(a_Pirate,child.lastChild);

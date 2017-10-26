@@ -301,6 +301,7 @@ function moveCalendar(){
 		var mini_title=childs.getElementsByClassName("mini-title")[0];
 		if (existeix(mini_title)){
 			hideCalendar();
+			newColors();
 			var mini_title_mT=mini_title.style.marginTop;
 			if (mini_title_mT!=="-5px"){
 				mini_title.style.marginTop="-5px";
@@ -332,6 +333,36 @@ function moveCalendar(){
 				}
 			}
 		}
+	}
+}
+function checkName(_array,name){
+	var trobat=false;
+	var code="";
+	var i=0;
+	while (!trobat && i<_array.length){
+		var newStr=_array[i].innerHTML.replace(/[0-9]/g, '');
+		trobat=(newStr==name);
+		if (!trobat) i++;
+	}
+    if (trobat){
+		code=_array[i].style.backgroundColor;
+	}
+	return code;
+}
+function newColors(){
+	var _array = [];
+	var shiftCode=0;
+	var _epis=document.getElementsByClassName("episode ellipsis");
+	for (var _iep=0;_iep<_epis.length;_iep++){
+		var _ep=_epis[_iep];
+		var name=_ep.innerHTML.replace(/[0-9]/g, '');
+		var code=checkName(_array,name);
+		if (code==""){
+			_array.push(_ep);
+			shiftCode+=95;
+			code="#"+shiftCode.toString(16);
+		}
+		_ep.style.backgroundColor=code;
 	}
 }
 function deleteMe(child){

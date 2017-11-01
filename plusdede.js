@@ -335,33 +335,17 @@ function moveCalendar(){
 		}
 	}
 }
-function checkName(_array,name){
-	var trobat=false;
-	var code="";
-	var i=0;
-	while (!trobat && i<_array.length){
-		var newStr=_array[i].innerHTML.replace(/[0-9]/g, '');
-		trobat=(newStr==name);
-		if (!trobat) i++;
-	}
-    if (trobat){
-		code=_array[i].style.backgroundColor;
-	}
-	return code;
+function checkName(name){
+	var _coloritos = ["fff","#154889","#B42041","#D9C022","#3e753b","#2BA5CF","#1D1F2A","#8A5A83","#701f29","#CCC58F","#e28a07","#992572","#AF8A54","#003399","#ada776","#79644a","#BE4E20","#C63927","#954527","#402225","#b37275","#933D50","#D15B8F","#83639D","#6B6880","#384C70","#2B2C7C","#2A3756","#313C48","#21888F","#0B4151","#07737A","#2F2A5A","#28713E","#4B573E","#35382E","#009999","#4E5451","#91969A","#534e46","#888175","#8F4E35","#6F4A2F","#a9783d","#6F4F28","#4a210b","#49392D","#633A34","#4C2F26","#44322D","#3F3A3A","#A65E2F","#443022","#79553C","#5e4a3b","#755C49","#cc6600","#c4ada1","#763C28","#d8a08d","#821717","#00cc99"];
+	var _series = ["Doctor Who (2005)","The Flash (2014)","The Simpsons","Arrow","The Tick (2016)","Black Mirror","Rick and Morty","Marvel's Daredevil","Travelers (2016)","The Ministry of Time","The Gifted","Marvel's Runaways","Marvel's Inhumans","The Guest Book","Big Mouth","Young Sheldon","Jeff &amp; Some Aliens","Riverdale","Marvel's Cloak &amp; Dagger","The Punisher (2017)","The Orville","Star vs. the Forces of Evil","Milo Murphy's Law","Dimension 404","Marvel's Iron Fist","Legion","Santa Clarita Diet","Dirk Gently's Holistic Detective Agency","Timeless (2016)","Marvel's The Defenders","A Series of Unfortunate Events","Stranger Things","Marvel's Luke Cage","Westworld","DC's Legends of Tomorrow","Supergirl","Stitchers","Blindspot","Fear the Walking Dead","Killjoys","Mr. Robot","Dark Matter","Humans","One-Punch Man","Marvel's Jessica Jones","iZombie","The Last Man on Earth","12 Monkeys","Z Nation","Gotham","Silicon Valley","The 100","Brooklyn Nine-Nine","Attack on Titan","Marvel's Agents of S.H.I.E.L.D.","Bob's Burgers","Shameless (US)","Family Guy","The Big Bang Theory","The Walking Dead","South Park","American Dad!"];
+	return _coloritos[_series.indexOf(name)+1];
 }
 function newColors(){
-	var _array = [];
-	var shiftCode=0;
 	var _epis=document.getElementsByClassName("episode ellipsis");
 	for (var _iep=0;_iep<_epis.length;_iep++){
 		var _ep=_epis[_iep];
-		var name=_ep.innerHTML.replace(/[0-9]/g, '');
-		var code=checkName(_array,name);
-		if (code==""){
-			_array.push(_ep);
-			shiftCode+=95;
-			code="#"+shiftCode.toString(16);
-		}
+		var name=_ep.innerHTML.replace(/ [0-9]*x[0-9]*/, '');
+		var code=checkName(name);
 		_ep.style.backgroundColor=code;
 	}
 }

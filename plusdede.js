@@ -386,6 +386,7 @@ function getCookie(cname){
 	return "";
 }
 edit();
+setTimeout(function(){ edit(); }, 250);
 function reload(){
 	try {
         edit();

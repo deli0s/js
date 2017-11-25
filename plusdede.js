@@ -144,7 +144,7 @@ function getDirectLink(){
 				var href_=s_parent.href;
 				getLink(href_,full_name,s_season,s_ep);
 				var _i=i;
-				setTimeout(function(){ setDirectLink(link_,_i); }, 250);
+				setTimeout(function(){ setDirectLink(link_,_i); }, 500);
 			}
 			setDirectLink(link_,i);
 		}

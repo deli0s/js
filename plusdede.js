@@ -143,13 +143,17 @@ function getDirectLink(){
 				var s_parent=s_i.parentNode;
 				var href_=s_parent.href;
 				getLink(href_,full_name,s_season,s_ep);
+				setTimeout(function(){ setDirectLink(link_,i); }, 250);
 			}
-			if (link_!==""){
-				var _pos=document.getElementsByClassName("media-container")[i];
-				var _done=_pos.getElementsByClassName("directLink")[0];
-				if (!existeix(_done)) addDirectLink("/aportes/8/"+link_,_pos);
-			}
+			setDirectLink(link_,i);
 		}
+	}
+}
+function setDirectLink(link_,i){
+	if (link_!==""){
+		var _pos=document.getElementsByClassName("media-container")[i];
+		var _done=_pos.getElementsByClassName("directLink")[0];
+		if (!existeix(_done)) addDirectLink("/aportes/8/"+link_,_pos);
 	}
 }
 function getLink(src_lk,full_name,s_season,s_ep){

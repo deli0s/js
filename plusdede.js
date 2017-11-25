@@ -143,15 +143,16 @@ function getDirectLink(){
 				var s_parent=s_i.parentNode;
 				var href_=s_parent.href;
 				getLink(href_,full_name,s_season,s_ep);
-				setTimeout(function(){ setDirectLink(link_,i); }, 250);
+				var _i=i;
+				setTimeout(function(){ setDirectLink(link_,_i); }, 250);
 			}
 			setDirectLink(link_,i);
 		}
 	}
 }
-function setDirectLink(link_,i){
+function setDirectLink(link_,__i){
 	if (link_!==""){
-		var _pos=document.getElementsByClassName("media-container")[i];
+		var _pos=document.getElementsByClassName("media-container")[__i];
 		var _done=_pos.getElementsByClassName("directLink")[0];
 		if (!existeix(_done)) addDirectLink("/aportes/8/"+link_,_pos);
 	}
@@ -388,6 +389,9 @@ function getCookie(cname){
 		if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
 	}
 	return "";
+}
+function cout(txt){
+	console.log(txt);
 }
 edit();
 setTimeout(function(){ edit(); }, 250);

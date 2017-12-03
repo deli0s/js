@@ -8,6 +8,7 @@ function edit(){
 				window.location.replace(visitar_a.href);
 			}
 		}else{//viewepisode
+			addFilters();
 			var prev=document.getElementsByClassName("modal-from-modal")[0];
 			if (existeix(prev)){
 				prev.setAttribute('href',prev.getAttribute('data-href'));
@@ -57,6 +58,129 @@ function edit(){
 		}
 	}else{
 		//addSolver();
+	}
+}
+function filter(){
+	_names=["eng","esp","eng_sub","esp_sub","c","o","m","other"];
+	var filters=document.getElementById("filters");
+	if (existeix(filters)){
+		var i;
+		i=0;var eng=document.getElementById(_names[i]).checked;
+		i++;var esp=document.getElementById(_names[i]).checked;
+		i++;var eng_sub=document.getElementById(_names[i]).checked;
+		i++;var esp_sub=document.getElementById(_names[i]).checked;
+		i++;var c=document.getElementById(_names[i]).checked;
+		i++;var o=document.getElementById(_names[i]).checked;
+		i++;var m=document.getElementById(_names[i]).checked;
+		i++;var other=document.getElementById(_names[i]).checked;
+		var aportes=document.getElementsByClassName("aporte");
+		var aportes_l=aportes.length;
+		for (var a_i=0;a_i<aportes_l;a_i++){
+			var aporte=aportes[a_i];
+			var host=aporte.getElementsByTagName("img")[0].src;
+			if ((host.indexOf("streamcloud")>-1 && c) || (host.indexOf("openload")>-1 && o) || (host.indexOf("streamango")>-1 && m))
+				aporte.style.display="block";
+			else{
+				if (other){
+					if ((host.indexOf("streamcloud")===-1) && (host.indexOf("openload")===-1) && (host.indexOf("streamango")===-1))
+						aporte.style.display="block";
+					else
+						aporte.style.display="none";
+				}else
+					aporte.style.display="none";
+			}
+			if (aporte.style.display==="block"){
+				var lang=aporte.getElementsByTagName("img")[1].src;
+				if ((lang.indexOf("eng")>-1 && eng) || (lang.indexOf("spa")>-1 && esp))
+					aporte.style.display="block";
+				else
+					aporte.style.display="none";
+			}
+			if (aporte.style.display==="block"){
+				var has_sub=aporte.getElementsByClassName("sub")[0];
+				if (existeix(has_sub)){
+					var sub=aporte.getElementsByTagName("img")[2].src;
+					if ((sub.indexOf("eng")>-1 && eng_sub) || (sub.indexOf("spa")>-1 && esp_sub))
+						aporte.style.display="block";
+					else
+						aporte.style.display="none";
+				}
+			}
+		}
+	}
+}
+function addFilters(){
+	var h4=document.getElementsByTagName("h4")[0];
+	var filters=document.getElementById("filters");
+	if (!existeix(filters) && existeix(h4)){
+		var width="310px";
+		var div_f=document.createElement("div");
+		div_f.id="filters";
+		var div_i_f=document.createElement("i");
+		div_i_f.className="fa fa-filter";
+		div_f.style.fontSize="x-small";
+		div_i_f.style.fontSize="medium";
+		div_f.style.color="#333";
+		div_f.appendChild(div_i_f);
+		div_f.innerHTML+=": ";
+		var div_img=document.createElement("img");
+		div_img.src="https://cdn1.plusdede.com/images/flags/english.png";
+		div_img.style.width="25px";
+		div_img.style.marginLeft="15px";
+		div_f.appendChild(div_img);
+		div_f.innerHTML+=" ";
+		var div_img2=document.createElement("img");
+		div_img2.src="https://cdn1.plusdede.com/images/flags/spanish.png";
+		div_img2.style.width="25px";
+		div_f.appendChild(div_img2);
+		div_f.innerHTML+=" ";
+		var div_img3=document.createElement("img");
+		div_img3.src="https://cdn1.plusdede.com/images/flags/english.png";
+		div_img3.style.width="25px";
+		div_img3.style.marginLeft="25px";
+		div_f.appendChild(div_img3);
+		div_f.innerHTML+=" ";
+		var div_img4=document.createElement("img");
+		div_img4.src="https://cdn1.plusdede.com/images/flags/spanish.png";
+		div_img4.style.width="25px";
+		div_f.appendChild(div_img4);
+		div_img4.style.marginRight="20px";
+		div_f.innerHTML+="Cloud Open Mang Other";
+		div_f.style.position="absolute";
+		div_f.style.marginTop="-35px";
+		div_f.style.marginLeft="250px";
+		h4.appendChild(div_f);
+		var div_2=document.createElement("div");
+		div_2.style.position="absolute";
+		div_2.style.marginTop="-15px";
+		div_2.style.marginLeft="251px";
+		var in_f=document.createElement("input");
+		in_f.type="checkbox";
+		in_f.style.marginRight="23px";
+		in_f.id="filter_checkbox";
+		in_f.checked=true;
+		in_f.onclick=function(){
+			_names=["eng","esp","eng_sub","esp_sub","c","o","m","other"];
+			for (var i=0;i<8;i++){
+				var in_=document.getElementById(_names[i]);
+				in_.checked=(in_f.checked);
+			}
+			filter();
+		};
+		div_2.appendChild(in_f);
+		_names=["eng","esp","eng_sub","esp_sub","c","o","m","other"];
+		for (var i=0;i<8;i++){
+			var in_0=document.createElement("input");
+			in_0.type="checkbox";
+			in_0.style.marginRight=String(15+27*(i===1)+15*(i===3))+"px";
+			in_0.id=_names[i];
+			in_0.checked=true;
+			in_0.onclick=function(){
+				filter();
+			};
+			div_2.appendChild(in_0);
+		}
+		h4.appendChild(div_2);
 	}
 }
 function addSolver(){

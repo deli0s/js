@@ -8,7 +8,7 @@ function edit(){
 				var video=videos[i_video];
 				if (existeix(video)){
 					var watched=video.getElementsByClassName("ytd-thumbnail-overlay-resume-playback-renderer")[0];
-					if (existeix(watched) || t_(video,"Late Motiv","Broncano,Berto,Romero,ignatius") || t_(video,"TERRAT","NADIE SABE NADA") || t_(video,"manga","Titan") || t_(video,"Oh! My LOL"," Moderna") || t_(video,"Jimmy Fallon","Hashtags,meme,nvent") || t_(video,"WIRED","Answer") || t_(video,"Pazos64","Cuidao Ahí") || t_(video,"Anochece","tonacho")){
+					if (existeix(watched) || t_(video,"Late Motiv","Broncano,Berto,Romero,ignatius") || t_(video,"TERRAT","NADIE SABE NADA") || t_(video,"manga","Titan") || t_(video,"Oh! My LOL"," Moderna") || t_(video,"Jimmy Fallon","Hashtags,meme,nvent") || t_(video,"WIRED","Answer") || t_(video,"Sarinha","SPACE ASTRONOMY") || t_(video,"Pazos64","Cuidao Ahí") || t_(video,"Anochece","tonacho")){
 						if (deleteByTag(video_str,i_video)) i_video--;
 					}
 				//console.log(i_video);

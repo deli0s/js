@@ -1,6 +1,6 @@
 var thepiratebay="https://thepiratebay.cr/search/";
 function edit(){
-	if (window.location.href.indexOf("aporte") > -1){
+	if (window.location.href.indexOf("aporte")>-1){
 		var visitar=document.getElementsByClassName("visit-buttons")[0];
 		if (existeix(visitar)){
 			var visitar_a=visitar.getElementsByTagName("a")[0];
@@ -8,7 +8,7 @@ function edit(){
 				window.location.replace(visitar_a.href);
 			}
 		}else{//viewepisode
-			addFilters();
+			addFilters(0);
 			var prev=document.getElementsByClassName("modal-from-modal")[0];
 			if (existeix(prev)){
 				prev.setAttribute('href',prev.getAttribute('data-href'));
@@ -17,6 +17,12 @@ function edit(){
 			if (existeix(next)){
 				next.setAttribute('href',next.getAttribute('data-href'));
 			}
+		}
+	}
+	var hosts=document.getElementsByTagName("h4")[1];
+	if (existeix(hosts)){
+		if (hosts.innerHTML.indexOf("hosts")>-1){
+			addFilters(1);
 		}
 	}
 	if (window.location.href.indexOf("pelis/pending") > -1){
@@ -109,8 +115,8 @@ function filter(){
 		}
 	}
 }
-function addFilters(){
-	var h4=document.getElementsByTagName("h4")[0];
+function addFilters(h4_n){
+	var h4=document.getElementsByTagName("h4")[h4_n];
 	var filters=document.getElementById("filters");
 	if (!existeix(filters) && existeix(h4)){
 		var width="310px";

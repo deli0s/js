@@ -351,7 +351,7 @@ function addPirate(nom,child){
 	var link_s0=nom.replace(/'s/g,"s");
 	var link_s=link_s0.replace(".","");
 	var link_=thepiratebay+link_s.replace(/-/g,"%20");
-	a_Pirate.setAttribute('href',link_);
+	a_Pirate.setAttribute('href',link_+"/0/7/208");
 	child.insertBefore(a_Pirate,child.lastChild);
 }
 function buttonDown(){

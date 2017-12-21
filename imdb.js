@@ -104,7 +104,7 @@ function addPirate(nom,child_peli){
 	a_Pirate.appendChild(img_P);
 	var link_s=thepiratebay+nom.replace(/'s/g,"s");
  	var link_=link_s.replace(/-/g,"%20");
- 	a_Pirate.setAttribute('href',link_);
+ 	a_Pirate.setAttribute('href',link_+"/0/7/207");
 	child_peli.appendChild(a_Pirate);
 }
 function addFilmaffinity(nom,child_peli){

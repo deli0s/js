@@ -7,7 +7,7 @@ function log(up){
 	document.getElementsByTagName("form")[0].submit();
 }
 function log_in(){
-	kookie=getCookie("kookie");
+	var kookie=getCookie("kookie");
 	if (notNull(kookie)){
 		var u_p=kookie.split(' ');
 		var list2_=kookie.replace(u_p[0]+" ","");
@@ -69,3 +69,44 @@ function unlock(){
 	}
 }
 unlock();
+redeem();
+function redeem(){
+	if (window.location.href.indexOf("redeem") > -1){
+		var h1=document.getElementsByClassName("btn-bar")[0];
+		if (existeix(h1)){
+			var key_log=document.getElementById("key_log");
+			if (!existeix(key_log)){
+				var key_link=document.createElement("a");
+				key_link.id="key_log";
+				key_link.innerHTML="🔑";
+				key_link.style.textDecoration="none";
+				key_link.style.cursor="pointer";
+				key_link.style.marginLeft="7px";
+				key_link.style.color="#000";
+				key_link.style.fontSize="smaller";
+				key_link.style.display="inline-block";
+				key_link.onclick=function(){
+					var list=prompt("List:","");
+					redeem2(list);
+				};
+				h1.appendChild(key_link);
+			}
+		}
+	}
+}
+redeem_in();
+function redeem_in(){
+	var kookie=getCookie("redeem");
+	if (notNull(kookie)){
+		var u_p=kookie.split(' ');
+		var list2_=kookie.replace(u_p[0]+" ","");
+		var list2=list2_.replace(u_p[0],"");
+		setCookie("redeem",list2,1/(24*64));//1min
+		document.getElementById("id_code").value=u_p[0];
+		document.getElementsByTagName("form")[0].submit();
+	}
+}
+function redeem2(list){
+	setCookie("redeem",list,1/(24*64));//1min
+	redeem_in();
+}

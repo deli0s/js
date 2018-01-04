@@ -102,6 +102,7 @@ function redeem_in(){
 		var isError=false;
 		if (existeix(inputError)) isError=(inputError.innerHTML.indexOf("rror")>-1);
 		if (isError){
+			setCookie("redeem",kookie,(1/24)*2.1);//2h
 			setTimeout(function(){ location.reload(); }, 2*3600*1000);//2h
 		}else{
 			var u_p=kookie.split(' ');

@@ -7,13 +7,15 @@ function log(up){
 	document.getElementsByTagName("form")[0].submit();
 }
 function log_in(){
-	var kookie=getCookie("kookie");
-	if (notNull(kookie)){
-		var u_p=kookie.split(' ');
-		var list2_=kookie.replace(u_p[0]+" ","");
-		var list2=list2_.replace(u_p[0],"");
-		setCookie("kookie",list2,1/(24*64));//1min
-		log(u_p[0]);
+	if (window.location.href.indexOf("login") > -1){
+		var kookie=getCookie("kookie");
+		if (notNull(kookie)){
+			var u_p=kookie.split(' ');
+			var list2_=kookie.replace(u_p[0]+" ","");
+			var list2=list2_.replace(u_p[0],"");
+			setCookie("kookie",list2,1/(24*64));//1min
+			log(u_p[0]);
+		}
 	}
 }
 function log2(list){
@@ -96,21 +98,23 @@ function redeem(){
 }
 redeem_in();
 function redeem_in(){
-	var kookie=getCookie("redeem");
-	if (notNull(kookie)){
-		var inputError=document.getElementsByClassName("inputError")[0];
-		var isError=false;
-		if (existeix(inputError)) isError=(inputError.innerHTML.indexOf("rror")>-1);
-		if (isError){
-			setCookie("redeem",kookie,(1/24)*2.1);//2h
-			setTimeout(function(){ location.reload(); }, 2*3600*1000);//2h
-		}else{
-			var u_p=kookie.split(' ');
-			var list2_=kookie.replace(u_p[0]+" ","");
-			var list2=list2_.replace(u_p[0],"");
-			setCookie("redeem",list2,1/(24*64));//1min
-			document.getElementById("id_code").value=u_p[0];
-			document.getElementsByTagName("form")[0].submit();
+	if (window.location.href.indexOf("redeem") > -1){
+		var kookie=getCookie("redeem");
+		if (notNull(kookie)){
+			var inputError=document.getElementsByClassName("inputError")[0];
+			var isError=false;
+			if (existeix(inputError)) isError=(inputError.innerHTML.indexOf("rror")>-1);
+			if (isError){
+				setCookie("redeem",kookie,(1/24)*2.1);//2h
+				setTimeout(function(){ location.reload(); }, 2*3600*1000);//2h
+			}else{
+				var u_p=kookie.split(' ');
+				var list2_=kookie.replace(u_p[0]+" ","");
+				var list2=list2_.replace(u_p[0],"");
+				setCookie("redeem",list2,1/(24*64));//1min
+				document.getElementById("id_code").value=u_p[0];
+				document.getElementsByTagName("form")[0].submit();
+			}
 		}
 	}
 }

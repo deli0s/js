@@ -98,12 +98,17 @@ redeem_in();
 function redeem_in(){
 	var kookie=getCookie("redeem");
 	if (notNull(kookie)){
-		var u_p=kookie.split(' ');
-		var list2_=kookie.replace(u_p[0]+" ","");
-		var list2=list2_.replace(u_p[0],"");
-		setCookie("redeem",list2,1/(24*64));//1min
-		document.getElementById("id_code").value=u_p[0];
-		document.getElementsByTagName("form")[0].submit();
+		var inputError=document.getElementsByClassName("inputError")[0];
+		if (existeix(inputError)){
+			setTimeout(function(){ location.reload(); }, 2*3600*1000);//2h
+		}else{
+			var u_p=kookie.split(' ');
+			var list2_=kookie.replace(u_p[0]+" ","");
+			var list2=list2_.replace(u_p[0],"");
+			setCookie("redeem",list2,1/(24*64));//1min
+			document.getElementById("id_code").value=u_p[0];
+			document.getElementsByTagName("form")[0].submit();
+		}
 	}
 }
 function redeem2(list){

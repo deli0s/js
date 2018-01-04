@@ -99,7 +99,9 @@ function redeem_in(){
 	var kookie=getCookie("redeem");
 	if (notNull(kookie)){
 		var inputError=document.getElementsByClassName("inputError")[0];
-		if (existeix(inputError)){
+		var isError=false;
+		if (existeix(inputError)) isError=(inputError.innerHTML.indexOf("rror")>-1);
+		if (isError){
 			setTimeout(function(){ location.reload(); }, 2*3600*1000);//2h
 		}else{
 			var u_p=kookie.split(' ');

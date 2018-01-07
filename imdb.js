@@ -127,10 +127,39 @@ function addFilmaffinity(nom,child_peli){
 function existeix(nom){
 	return (nom!==undefined && nom!==null);
 }
+function actors(){
+	if (window.location.href.indexOf("ls021034864")>-1){
+		var filmosearch=document.getElementsByClassName("footer filmosearch")[0];
+		if (existeix(filmosearch)){
+			if (filmosearch.style.position!=="fixed"){
+				if (window.location.href.indexOf("mode=grid")==-1){
+					document.getElementsByClassName("global-sprite lister-mode grid")[0].click();
+				}
+				document.getElementById("main").style.width="96%";
+				filmosearch.style.position="fixed";
+				filmosearch.style.top="230px";
+				filmosearch.style.backgroundColor="#f9f9f8";
+				filmosearch.style.height="20px";
+			}
+			setTimeout(function(){
+				if (window.pageYOffset == 0){
+					filmosearch.style.top="230px";
+				}else{
+					if (window.pageYOffset >= 240){
+						filmosearch.style.top="0px";
+					}else{
+						filmosearch.style.top=String(240-window.pageYOffset)+"px";
+					}
+				}
+			}, 100);
+		}
+	}
+}
 edit();
 function reload(){
 	try {
         edit();
+        actors();
     }catch(err) {
         // error
     }

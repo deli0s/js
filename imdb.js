@@ -1,7 +1,7 @@
 var thepiratebay="https://thepiratebay.cr/search/";
 function edit(){
 	if (window.location.href.indexOf("title") > -1){
-		var title_=document.getElementsByTagName("h1")[1];
+		var title_=document.getElementsByTagName("h1")[0];
 		if (existeix(title_)){
 			var originalTitle=document.getElementsByClassName("originalTitle")[0];
 			var title2=title_.innerHTML.substr(0,title_.innerHTML.indexOf("&nbsp"));

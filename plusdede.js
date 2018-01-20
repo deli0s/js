@@ -522,5 +522,6 @@ function reload(){
         console.log(err);
     }
 }
+document.onload=reload;
 document.body.onclick=reload;
 document.body.addEventListener("wheel",reload);

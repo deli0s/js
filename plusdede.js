@@ -244,8 +244,7 @@ function getLink(src_lk,full_name,s_season,s_ep){
 				}
 				var data_id=data.indexOf("data-id");
 				id_=data.substr(data_id+10,6);
-				setCookie(_name,id_,1/24/60);//NOOOOOOOOOO
-				//setCookie(_name,id_,2);//2 days
+				setCookie(_name,id_,2);//2 days
 			}
 		}
 	});

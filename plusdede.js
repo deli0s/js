@@ -62,8 +62,6 @@ function edit(){
 		}else{
 			buttonDown();
 		}
-	}else{
-		//addSolver();
 	}
 }
 function filter(){
@@ -189,65 +187,6 @@ function addFilters(h4_n){
 		h4.appendChild(div_2);
 	}
 }
-function addSolver(){
-	var captcha=document.getElementsByClassName("col-xs-12")[2];
-	/*var unlock=document.getElementById("unlock");
-	if (!existeix(unlock)){
-		var _a=document.createElement("a");
-		var _a_i=document.createElement("i");
-		_a_i.className="fa fa-unlock";
-		_a.appendChild(_a_i);
-		_a.id="unlock";
-		_a.style.cursor="pointer";
-		_a.onclick=function(){
-			breakCaptcha();
-		};
-		captcha.appendChild(_a);
-	}*/
-	var segmentacao=document.getElementById("segmentacao");
-	if (!existeix(segmentacao)){
-		var _canvas=document.createElement("canvas");
-		_canvas.id="segmentacao";
-		_canvas.style.width="300px";
-		_canvas.style.height="80px";
-		captcha.appendChild(_canvas);
-	}
-	breakCaptcha();
-}
-function breakCaptcha(){
-	var captcha=document.getElementsByClassName("col-xs-12")[2].getElementsByTagName("img")[0];
-	var segmentacao=document.getElementById("segmentacao");
-	var canvas = segmentacao;
-	var ctx = canvas.getContext('2d');
-	ctx.drawImage(captcha, 0, 0);
-
-	var pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-	var d = pixels.data;
-	for (var i = 0; i < d.length; i += 4){
-		var r = d[i];
-		var g = d[i + 1];
-		var b = d[i + 2];
-		var v = 0;
-
-		//Extract only gray pixels
-		//Filter darker pixels (<100)
-		var diff = Math.abs(r - g) + Math.abs(r - b) + Math.abs(g - b);
-		var isGray = diff <= 30 && r > 100;
-		//var isGray = Math.abs(r - g) <= 5 && Math.abs(r - b) <= 5 && Math.abs(g - b) <= 5;
-
-		var color = isGray ? 255 : 0;
-		d[i] = d[i + 1] = d[i + 2] = color;
-	}
-
-	ctx.putImageData(pixels, 0, 0);
-
-	//GOCR is a library for OCR
-	//In this simple captchas it is enough
-	var text = GOCR(segmentacao);
-	var _input=document.getElementById("input-captcha");
-	_input.value = text.toUpperCase();
-}
 function getDirectLink(){
 	var links=document.getElementsByClassName("directLink");
 	var series=document.getElementsByClassName("media-title");
@@ -258,11 +197,18 @@ function getDirectLink(){
 			var s_text=s_i.innerHTML;
 			var _pirates=document.getElementsByClassName("pirate");
 			if (_pirates.length<s_size) addPirate(s_text,document.getElementsByClassName("media-container")[i]);
-			var link_=getCookie(s_text);
+			var splited=splitEp(s_text);
+			var s_name=splited[0];
+			var s_season_n=splited[1];
+			var s_ep_n=splited[2];
+			var s_season=((s_season_n<10)?"0":"")+String(s_season_n);
+			var s_ep=((s_ep_n<10)?"0":"")+String(s_ep_n);
+			var full_name=s_name+s_season+"x"+s_ep;
+			var link_=getCookie(full_name);
 			if (link_===""){
 				var s_parent=s_i.parentNode;
 				var href_=s_parent.href;
-				getLink(href_,s_text,s_season,s_ep);
+				getLink(href_,full_name,s_season_n,s_ep_n);
 				var _i=i;
 				setTimeout(function(){ setDirectLink(link_,_i); }, 500);
 			}
@@ -293,12 +239,13 @@ function getLink(src_lk,full_name,s_season,s_ep){
 				data=data.substr(s_start,data.length-s_start);
 				var ep_start=data.indexOf("num\\\">"+ep_ep);
 				data=data.substr(0,ep_start);
-				for (var i=1;i<Number(ep_ep);i++){
+				for (var i=1;i<ep_ep;i++){
 					data=data.replace("data-id","");
 				}
 				var data_id=data.indexOf("data-id");
 				id_=data.substr(data_id+10,6);
-				setCookie(_name,id_,2);//2 days
+				setCookie(_name,id_,1/24/60);//NOOOOOOOOOO
+				//setCookie(_name,id_,2);//2 days
 			}
 		}
 	});
@@ -493,6 +440,19 @@ function addDayPirates(day){
 	}
 }
 function makePirateLink(txt){
+	var splited=splitEp(txt);
+	var s_name=splited[0];
+	var s_season_n=splited[1];
+	var s_ep_n=splited[2];
+	var s_season=((s_season_n<10)?"0":"")+String(s_season_n);
+	var s_ep=((s_ep_n<10)?"0":"")+String(s_ep_n);
+	var nom=s_name+"%20s"+s_season+"e"+s_ep;
+	var link_s0=nom.replace(/'s/g,"s");
+	var link_s=link_s0.replace(/\./g,"%20");
+	var link_=thepiratebay+link_s.replace(/-/g,"%20")+"/0/7/208";
+	return link_;
+}
+function splitEp(txt){
 	var s_text=txt;
 	var s_season_n=s_text.match(/\d+/)[0];//nº season
 	var s_season=String(s_season_n);
@@ -500,17 +460,11 @@ function makePirateLink(txt){
 	var s_full=s_text.substr(s_pos,s_text.length-s_pos);
 	var s_ep_str=s_full.replace(s_season+"x","");
 	var s_ep_n=String(parseInt(s_ep_str));//nº ep
-	var s_ep="";
-	if (s_ep_n<10) s_ep="0";
-	s_ep+=String(s_ep_n);
+	var s_ep=((s_ep_n<10)?"0":"")+String(s_ep_n);
 	var s_name0=s_text.replace(s_season+"x"+s_ep+" ","");
 	var s_name=s_name0.replace(" "+s_season+"x"+s_ep,"");//serie name
-	if (s_season_n<10) s_season=String("0"+s_season_n);
-	var nom=s_name+"%20s"+s_season+"e"+s_ep;
-	var link_s0=nom.replace(/'s/g,"s");
-	var link_s=link_s0.replace(/\./g,"%20");
-	var link_=thepiratebay+link_s.replace(/-/g,"%20")+"/0/7/208";
-	return link_;
+	var _splited=[s_name,s_season_n,s_ep_n];
+	return _splited;
 }
 function newColors(){
 	var _epis=document.getElementsByClassName("episode ellipsis");

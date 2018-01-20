@@ -256,23 +256,13 @@ function getDirectLink(){
 		for (var i=0;i<s_size;i++){
 			var s_i=series[i];
 			var s_text=s_i.innerHTML;
-			var s_season=s_text.substring(0,s_text.indexOf("x"));//nº season
-			var s_ep_str=s_text.replace(s_season+"x","");
-			var s_space=s_ep_str.indexOf(" ");
-			var s_ep=Number(s_ep_str.substr(0,s_space));//nº ep
-			var s_ep2=String(s_ep);
-			if (s_ep<10) s_ep2="0"+String(s_ep);
-			var s_season2=String(s_season);
-			if (s_season<10) s_season2=String("0"+s_season);
-			var s_name=s_text.replace(s_season+"x"+s_ep2+" ","");//serie name
 			var _pirates=document.getElementsByClassName("pirate");
-			if (_pirates.length<s_size) addPirate(s_name+"%20s"+s_season2+"e"+s_ep2,document.getElementsByClassName("media-container")[i]);
-			var full_name=s_name+s_season2+"x"+s_ep2;
-			var link_=getCookie(full_name);
+			if (_pirates.length<s_size) addPirate(s_text,document.getElementsByClassName("media-container")[i]);
+			var link_=getCookie(s_text);
 			if (link_===""){
 				var s_parent=s_i.parentNode;
 				var href_=s_parent.href;
-				getLink(href_,full_name,s_season,s_ep);
+				getLink(href_,s_text,s_season,s_ep);
 				var _i=i;
 				setTimeout(function(){ setDirectLink(link_,_i); }, 500);
 			}
@@ -337,7 +327,7 @@ function addDirectLink(link_,child){
 		child.appendChild(a_link);
 	}
 }
-function addPirate(nom,child){
+function addPirate(txt,child){
 	var a_Pirate=document.createElement("a");
 	var img_P=document.createElement("img");
 	img_P.src="https://rawgit.com/deli0s/js/master/tpb.png";
@@ -348,7 +338,7 @@ function addPirate(nom,child){
 	a_Pirate.style.zIndex="1";
 	a_Pirate.appendChild(img_P);
 	a_Pirate.setAttribute('target','_blank');
-	var link_=makePirateLink(nom);
+	var link_=makePirateLink(txt);
 	a_Pirate.setAttribute('href',link_);
 	child.insertBefore(a_Pirate,child.lastChild);
 }
@@ -502,9 +492,23 @@ function addDayPirates(day){
 		today_a[i_a].href=link_;
 	}
 }
-function makePirateLink(nom){
+function makePirateLink(txt){
+	var s_text=txt;
+	var s_season_n=s_text.match(/\d+/)[0];//nº season
+	var s_season=String(s_season_n);
+	var s_pos=s_text.indexOf(s_season+"x");
+	var s_full=s_text.substr(s_pos,s_text.length-s_pos);
+	var s_ep_str=s_full.replace(s_season+"x","");
+	var s_ep_n=String(parseInt(s_ep_str));//nº ep
+	var s_ep="";
+	if (s_ep_n<10) s_ep="0";
+	s_ep+=String(s_ep_n);
+	var s_name0=s_text.replace(s_season+"x"+s_ep+" ","");
+	var s_name=s_name0.replace(" "+s_season+"x"+s_ep,"");//serie name
+	if (s_season_n<10) s_season=String("0"+s_season_n);
+	var nom=s_name+"%20s"+s_season+"e"+s_ep;
 	var link_s0=nom.replace(/'s/g,"s");
-	var link_s=link_s0.replace(".","");
+	var link_s=link_s0.replace(/\./g,"%20");
 	var link_=thepiratebay+link_s.replace(/-/g,"%20")+"/0/7/208";
 	return link_;
 }

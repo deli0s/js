@@ -35,7 +35,7 @@ function edit(){
 				var p_=peli.getElementsByClassName("media-dropdown mini dropdown model")[0];
 				if (existeix(p_)){
 					var p_link="/aportes/4/"+p_.getAttribute("data-id");
-					addDirectLink(p_link,peli);
+					addDirectLink(p_link,peli,0);
 				}
 			}
 		}
@@ -197,30 +197,17 @@ function getDirectLink(){
 			var s_text=s_i.innerHTML;
 			var _pirates=document.getElementsByClassName("pirate");
 			if (_pirates.length<s_size) addPirate(s_text,document.getElementsByClassName("media-container")[i]);
-			var splited=splitEp(s_text);
-			var s_name=splited[0];
-			var s_season_n=splited[1];
-			var s_ep_n=splited[2];
-			var s_season=((s_season_n<10)?"0":"")+String(s_season_n);
-			var s_ep=((s_ep_n<10)?"0":"")+String(s_ep_n);
-			var full_name=s_name+s_season+"x"+s_ep;
-			var link_=getCookie(full_name);
-			if (link_===""){
-				var s_parent=s_i.parentNode;
-				var href_=s_parent.href;
-				getLink(href_,full_name,s_season_n,s_ep_n);
-				var _i=i;
-				setTimeout(function(){ setDirectLink(link_,_i); }, 500);
-			}
-			setDirectLink(link_,i);
+			var _pos=document.getElementsByClassName("media-container")[i];
+			var s_parent=s_i.parentNode;
+			var href_=s_parent.href;
+			linkDirect(s_text,_pos,href_,0);
 		}
 	}
 }
-function setDirectLink(link_,__i){
+function setDirectLink(link_,_pos,type){
 	if (link_!==""){
-		var _pos=document.getElementsByClassName("media-container")[__i];
 		var _done=_pos.getElementsByClassName("directLink")[0];
-		if (!existeix(_done)) addDirectLink("/aportes/8/"+link_,_pos);
+		if (!existeix(_done)) addDirectLink("/aportes/8/"+link_,_pos,type);
 	}
 }
 function getLink(src_lk,full_name,s_season,s_ep){
@@ -249,7 +236,7 @@ function getLink(src_lk,full_name,s_season,s_ep){
 		}
 	});
 }
-function addDirectLink(link_,child){
+function addDirectLink(link_,child,type){
 	var done=child.getElementsByClassName("directLink")[0];
 	if (!existeix(done)){
 		var a_link=document.createElement("a");
@@ -264,11 +251,16 @@ function addDirectLink(link_,child){
 		a_link.style.border="1px solid #ccc";
 		a_link.style.color="#000";
 		a_link.style.background="#fff";
-		a_link.style.width="28px";
 		a_link.style.padding="2px 0px 0px 2px";
 		a_link.style.position="absolute";
-		a_link.style.top="-3px";
-		a_link.style.left="3px";
+		if (type==0){
+			a_link.style.top="-3px";
+			a_link.style.left="3px";
+			a_link.style.width="28px";
+		}else{
+			a_link.style.right="3px";
+			a_link.style.width="14px";
+		}
 		a_link.style.zIndex="1";
 		child.appendChild(a_link);
 	}
@@ -371,7 +363,7 @@ function moveCalendar(){
 		if (existeix(mini_title)){
 			hideCalendar();
 			newColors();
-			pirateToday();
+			linksToday();
 			var mini_title_mT=mini_title.style.marginTop;
 			if (mini_title_mT!=="-5px"){
 				mini_title.style.marginTop="-5px";
@@ -410,29 +402,50 @@ function checkName(name){
 	var _series = ["Doctor Who (2005)","The Flash (2014)","The Simpsons","Arrow","The Tick (2016)","Black Mirror","Rick and Morty","Marvel's Daredevil","Travelers (2016)","The Ministry of Time","The Gifted","Marvel's Runaways","Marvel's Inhumans","The Guest Book","Big Mouth","Young Sheldon","Jeff &amp; Some Aliens","Riverdale","Marvel's Cloak &amp; Dagger","The Punisher (2017)","The Orville","Star vs. the Forces of Evil","Milo Murphy's Law","Dimension 404","Marvel's Iron Fist","Legion","Santa Clarita Diet","Dirk Gently's Holistic Detective Agency","Timeless (2016)","Marvel's The Defenders","A Series of Unfortunate Events","Stranger Things","Marvel's Luke Cage","Westworld","DC's Legends of Tomorrow","Supergirl","Stitchers","Blindspot","Fear the Walking Dead","Killjoys","Mr. Robot","Dark Matter","Humans","One-Punch Man","Marvel's Jessica Jones","iZombie","The Last Man on Earth","12 Monkeys","Z Nation","Gotham","Silicon Valley","The 100","Brooklyn Nine-Nine","Attack on Titan","Marvel's Agents of S.H.I.E.L.D.","Bob's Burgers","Shameless (US)","Family Guy","The Big Bang Theory","The Walking Dead","South Park","American Dad!"];
 	return _coloritos[_series.indexOf(name)+1];
 }
-function pirateToday(){
+function linksToday(){
 	var today=document.getElementsByClassName("cal-day-today")[0];
 	if (existeix(today)){
 		var today_s=today.getElementsByTagName("span")[0];
 		if (existeix(today_s)){
 			var today_p=today_s.getElementsByTagName("a")[0];
 			if (!existeix(today_p)){
-				addDayPirates(today);
+				addDayLinks(today);
 				var today_n=Number(today_s.innerHTML);
 				var tomorrow=document.getElementsByClassName("cal-day-inmonth")[today_n];
 				if (existeix(tomorrow)){
-					addDayPirates(tomorrow);
+					addDayLinks(tomorrow);
 				}
 			}
 		}
 	}
 }
-function addDayPirates(day){
+function linkDirect(s_text,_pos,href_,type){
+	var splited=splitEp(s_text);
+	var s_name=splited[0];
+	var s_season_n=splited[1];
+	var s_ep_n=splited[2];
+	var s_season=String(s_season_n);
+	var s_ep=((s_ep_n<10)?"0":"")+String(s_ep_n);
+	var full_name=s_name+s_season+"x"+s_ep;
+	var link_=getCookie(full_name);
+	if (link_===""){
+		getLink(href_,full_name,s_season,s_ep_n);
+		setTimeout(function(){ setDirectLink(getCookie(full_name),_pos,type); }, 1500);
+	}
+	setDirectLink(link_,_pos,type);
+}
+function addDayLinks(day){
 	var today_s=day.getElementsByTagName("span")[0];
-	var today_a=day.getElementsByTagName("a");
+	var today_a=day.getElementsByClassName("episode ellipsis");
 	for (var i_a=0;i_a<today_a.length;i_a++){
 		var _serie=today_a[i_a];
 		var _serie_nom=_serie.innerHTML;
+		var real_link=today_a[i_a].dataset.real_link;
+		if (!existeix(real_link)){
+			real_link=today_a[i_a].href;
+			today_a[i_a].dataset.real_link=real_link;
+		}
+		linkDirect(_serie_nom,_serie,real_link,1);
 		var link_=makePirateLink(_serie_nom);
 		today_a[i_a].setAttribute('target','_blank');
 		today_a[i_a].href=link_;
@@ -453,12 +466,13 @@ function makePirateLink(txt){
 }
 function splitEp(txt){
 	var s_text=txt;
-	var s_season_n=s_text.match(/\d+/)[0];//nº season
-	var s_season=String(s_season_n);
-	var s_pos=s_text.indexOf(s_season+"x");
-	var s_full=s_text.substr(s_pos,s_text.length-s_pos);
-	var s_ep_str=s_full.replace(s_season+"x","");
-	var s_ep_n=String(parseInt(s_ep_str));//nº ep
+	var s_match_arr=s_text.match(/[0-9]*x[0-9]*/);
+	if (!existeix(s_match_arr)) 	return error=["error","error","error"];
+	var s_match=s_match_arr[0];
+	var s_season=s_match.split("x")[0];//nº season
+	var s_season_n=Number(s_season);
+	var s_ep_str=s_match.split("x")[1];
+	var s_ep_n=Number(s_ep_str);//nº ep
 	var s_ep=((s_ep_n<10)?"0":"")+String(s_ep_n);
 	var s_name0=s_text.replace(s_season+"x"+s_ep+" ","");
 	var s_name=s_name0.replace(" "+s_season+"x"+s_ep,"");//serie name
@@ -516,9 +530,9 @@ function cout(txt){
 edit();
 setTimeout(function(){ edit(); }, 250);
 function reload(){
-	try {
+	try{
         edit();
-    }catch(err) {
+    }catch(err){
         console.log(err);
     }
 }

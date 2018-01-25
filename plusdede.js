@@ -439,7 +439,10 @@ function addDayLinks(day){
 	var today_a=day.getElementsByClassName("episode ellipsis");
 	for (var i_a=0;i_a<today_a.length;i_a++){
 		var _serie=today_a[i_a];
-		var _serie_nom=_serie.innerHTML;
+		var _serie_HTML=_serie.innerHTML;
+		var _serie_nxn=_serie_HTML.match(/[0-9]*x[0-9]*/)[0];
+		var _serie_nxn_pos=_serie_HTML.indexOf(_serie_nxn);
+		var _serie_nom=_serie_HTML.substr(0,_serie_nxn_pos+_serie_nxn.length);
 		var real_link=today_a[i_a].dataset.real_link;
 		if (!existeix(real_link)){
 			real_link=today_a[i_a].href;

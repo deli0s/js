@@ -22,7 +22,7 @@ function edit(){
 function actorsFilter(video){
 	var title_=video.getElementsByTagName("a")[2];
 	var h3_=video.getElementsByTagName("h3")[0];
-	var shows="Graham Norton,Jimmy Fallon";
+	var shows="Graham Norton,Jimmy Fallon,Jimmy Kimmel,Stephen Colbert,Team Coco,James Corden";
 	if (findTextArray(title_,shows.split(",")) && !findTextArray(h3_,actors)){
 		video.style.opacity="0.4";
 	}

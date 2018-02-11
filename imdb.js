@@ -18,6 +18,7 @@ function edit(){
 					addPlusdede(title,child);
 					addWopelis(title2,child);
 					addPirate(title,child);
+					addRating();
 				}
 			}
 		}
@@ -53,6 +54,21 @@ function edit(){
 	}
 }//end edit
 
+function addRating(){
+	var _l="https://tvplot.herokuapp.com/";
+	var ratings_wrapper=document.getElementsByClassName("ratings_wrapper")[0];
+	if (existeix(ratings_wrapper)){
+		var span=ratings_wrapper.getElementsByTagName("span")[0];
+		if (existeix(span)){
+			var _in=span.innerHTML;
+			var _h=window.location.href;
+			var _id_s="title/";
+			var _id_p=_h.indexOf(_id_s);
+			var _id=_h.substr(_id_p+_id_s.length,_h.length-_id_p);
+			span.innerHTML='<a target="_blank" href="'+_l+_id+'">'+_in+'</a>';
+		}
+	}
+}
 function addPlusdede(nom,child_peli){
 	var a_Plusdede=document.createElement("a");
 	var img_Por=document.createElement("img");

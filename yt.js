@@ -1,9 +1,9 @@
 function edit(){
-	var css = document.createElement("style");
-	css.type = "text/css";
-	css.innerHTML = ".style-scope .ytd-grid-renderer .videoblocker-allowed { opacity: 0.4; } .style-scope .ytd-grid-renderer .videoblocker-allowed:hover { opacity: 1; }";
-	document.body.appendChild(css);
 	if (window.location.href.indexOf("subscriptions") > -1){
+		var css = document.createElement("style");
+		css.type = "text/css";
+		css.innerHTML = ".style-scope .ytd-grid-renderer .videoblocker-allowed { opacity: 0.4; } .style-scope .ytd-grid-renderer .videoblocker-allowed:hover { opacity: 1; }";
+		document.body.appendChild(css);
 		var video_str="ytd-grid-video-renderer";
 		var videos=document.getElementsByTagName(video_str);
 		if (existeix(videos)){

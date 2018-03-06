@@ -1,4 +1,8 @@
 function edit(){
+	var css = document.createElement("style");
+	css.type = "text/css";
+	css.innerHTML = ".style-scope .ytd-grid-renderer .videoblocker-allowed { opacity: 0.4; } .style-scope .ytd-grid-renderer .videoblocker-allowed:hover { opacity: 1; }";
+	document.body.appendChild(css);
 	if (window.location.href.indexOf("subscriptions") > -1){
 		var video_str="ytd-grid-video-renderer";
 		var videos=document.getElementsByTagName(video_str);
@@ -23,8 +27,8 @@ function actorsFilter(video){
 	var title_=video.getElementsByTagName("a")[2];
 	var h3_=video.getElementsByTagName("h3")[0];
 	var shows="Graham Norton,Jimmy Fallon,Jimmy Kimmel,Stephen Colbert,Team Coco,James Corden";
-	if (findTextArray(title_,shows.split(",")) && !findTextArray(h3_,actors)){
-		video.style.opacity="0.4";
+	if (!(findTextArray(title_,shows.split(",")) && !findTextArray(h3_,actors))){
+		video.style.opacity="1";
 	}
 }
 

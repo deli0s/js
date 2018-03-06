@@ -18,6 +18,7 @@ function edit(){
 				next.setAttribute('href',next.getAttribute('data-href'));
 			}
 		}
+		addReddit();
 	}
 	var hosts=document.getElementsByTagName("h4")[1];
 	if (existeix(hosts)){
@@ -263,6 +264,27 @@ function addDirectLink(link_,child,type){
 		}
 		a_link.style.zIndex="1";
 		child.appendChild(a_link);
+	}
+}
+function addReddit(){
+	var reddit=document.getElementById("reddit");
+	if (!existeix(reddit)){
+		var container=document.getElementsByClassName("episode-seen-container")[0];
+		if (existeix(container)){
+			var a_Pirate=document.createElement("a");
+			var img_P=document.createElement("img");
+			img_P.src="https://www.redditstatic.com/desktop2x/img/favicon/favicon-32x32.png";
+			img_P.style.width="20px";
+			a_Pirate.setAttribute('id','reddit');
+			a_Pirate.style.float="right";
+			a_Pirate.style.marginTop="-30px";
+			a_Pirate.style.marginRight="-30px";
+			a_Pirate.appendChild(img_P);
+			a_Pirate.setAttribute('target','_blank');
+			var link_="https://www.reddit.com/search?q="+(document.title.substr(0,document.title.indexOf(" -")).replace(/ /g,"+"));
+			a_Pirate.setAttribute('href',link_);
+			container.appendChild(a_Pirate);
+		}
 	}
 }
 function addPirate(txt,child){

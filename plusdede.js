@@ -19,6 +19,7 @@ function edit(){
 			}
 		}
 		addReddit();
+		add_imdb_Ep();
 	}
 	var hosts=document.getElementsByTagName("h4")[1];
 	if (existeix(hosts)){
@@ -271,19 +272,41 @@ function addReddit(){
 	if (!existeix(reddit)){
 		var container=document.getElementsByClassName("episode-seen-container")[0];
 		if (existeix(container)){
-			var a_Pirate=document.createElement("a");
-			var img_P=document.createElement("img");
-			img_P.src="https://www.redditstatic.com/desktop2x/img/favicon/favicon-32x32.png";
-			img_P.style.width="20px";
-			a_Pirate.setAttribute('id','reddit');
-			a_Pirate.style.float="right";
-			a_Pirate.style.marginTop="-30px";
-			a_Pirate.style.marginRight="-30px";
-			a_Pirate.appendChild(img_P);
-			a_Pirate.setAttribute('target','_blank');
+			var aReddit=document.createElement("a");
+			var img_R=document.createElement("img");
+			img_R.src="https://www.redditstatic.com/desktop2x/img/favicon/favicon-32x32.png";
+			img_R.style.width="20px";
+			aReddit.setAttribute('id','reddit');
+			aReddit.style.float="right";
+			aReddit.style.marginTop="-30px";
+			aReddit.style.marginRight="-30px";
+			aReddit.appendChild(img_R);
+			aReddit.setAttribute('target','_blank');
 			var link_="https://www.reddit.com/search?q="+(document.title.substr(0,document.title.indexOf(" -")).replace(/ /g,"+"));
-			a_Pirate.setAttribute('href',link_);
-			container.appendChild(a_Pirate);
+			aReddit.setAttribute('href',link_);
+			container.appendChild(aReddit);
+		}
+	}
+}
+function add_imdb_Ep(){
+	var imdb_Ep=document.getElementById("imdb_Ep");
+	if (!existeix(imdb_Ep)){
+		var container=document.getElementsByClassName("episode-seen-container")[0];
+		if (existeix(container)){
+			var a_imdb_Ep=document.createElement("a");
+			var img_I=document.createElement("img");
+			img_I.src="https://images-na.ssl-images-amazon.com/images/G/01/imdb/images/logos/imdb_fb_logo-1730868325._CB514892123_.png";
+			img_I.style.width="20px";
+			a_imdb_Ep.setAttribute('id','imdb_Ep');
+			a_imdb_Ep.style.float="right";
+			a_imdb_Ep.style.marginTop="-30px";
+			a_imdb_Ep.style.marginRight="-60px";
+			a_imdb_Ep.appendChild(img_I);
+			a_imdb_Ep.setAttribute('target','_blank');
+			var _tAll=document.title.replace(" - ","");
+			var link_="http://www.imdb.com/find?ref_=nv_sr_fn&q="+_tAll.substr(_tAll.indexOf(" - ")+3,999).replace(/ /g,"+");
+			a_imdb_Ep.setAttribute('href',link_);
+			container.appendChild(a_imdb_Ep);
 		}
 	}
 }

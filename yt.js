@@ -1,4 +1,4 @@
- function edit(){
+function edit(){
 	if (window.location.href.indexOf("subscriptions") > -1){
 		var video_str="ytd-grid-video-renderer";
 		var videos=document.getElementsByTagName(video_str);
@@ -63,11 +63,11 @@ function existeix(nom){
 
 function deleteByTag(nom,num){
 	var childClass=document.getElementsByTagName(nom)[num];
-    if (existeix(childClass)){
-        var pareClass=childClass.parentNode;
-        pareClass.removeChild(childClass);
+	if (existeix(childClass)){
+		var pareClass=childClass.parentNode;
+		pareClass.removeChild(childClass);
 		return true;
-    }
+	}
 	return false;
 }
 
@@ -78,11 +78,11 @@ function cout(txt){//per fer proves
 reload();
 function reload(){
 	try{
-        edit();
+		edit();
 		addCss();
-    }catch(err){
-        console.log("error");
-    }
+	}catch(err){
+		console.log("error");
+	}
 }
 function addCss(){
 	var css = document.createElement("style");

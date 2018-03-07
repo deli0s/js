@@ -1,9 +1,5 @@
-function edit(){
+ function edit(){
 	if (window.location.href.indexOf("subscriptions") > -1){
-		var css = document.createElement("style");
-		css.type = "text/css";
-		css.innerHTML = ".style-scope .ytd-grid-renderer .videoblocker-allowed { opacity: 0.4; } .style-scope .ytd-grid-renderer .videoblocker-allowed:hover { opacity: 1; }";
-		document.body.appendChild(css);
 		var video_str="ytd-grid-video-renderer";
 		var videos=document.getElementsByTagName(video_str);
 		if (existeix(videos)){
@@ -24,11 +20,15 @@ function edit(){
 }
 
 function actorsFilter(video){
-	var title_=video.getElementsByTagName("a")[2];
-	var h3_=video.getElementsByTagName("h3")[0];
-	var shows="Graham Norton,Jimmy Fallon,Jimmy Kimmel,Stephen Colbert,Team Coco,James Corden";
-	if (!(findTextArray(title_,shows.split(",")) && !findTextArray(h3_,actors))){
-		video.style.opacity="1";
+	var _class="riki_tiki_checked";
+	if (video.className.indexOf(_class)==-1){
+		var title_=video.getElementsByTagName("a")[2];
+		var h3_=video.getElementsByTagName("h3")[0];
+		var shows="Graham Norton,Jimmy Fallon,Jimmy Kimmel,Stephen Colbert,Team Coco,James Corden";
+		if (!(findTextArray(title_,shows.split(",")) && !findTextArray(h3_,actors))){
+			video.style.opacity="1";
+		}
+		video.className+=_class;
 	}
 }
 
@@ -75,13 +75,24 @@ function cout(txt){//per fer proves
 	console.log(txt);
 }
 
-edit();
+reload();
 function reload(){
-	try {
+	try{
         edit();
-    }catch(err) {
+		addCss();
+    }catch(err){
         console.log("error");
     }
 }
+function addCss(){
+	var css = document.createElement("style");
+	css.type = "text/css";
+	if (window.location.href.indexOf("subscriptions") > -1){
+		css.innerHTML = ".style-scope .ytd-grid-renderer .videoblocker-allowed { opacity: 0.4; } .style-scope .ytd-grid-renderer .videoblocker-allowed:hover { opacity: 1; }";
+	}else{
+		css.innerHTML = ".style-scope .ytd-grid-renderer .videoblocker-allowed { opacity: 1; }";
+	}
+	document.body.appendChild(css);
+}
 document.body.onclick=reload;
-document.body.addEventListener("wheel",reload);
+document.body.addEventListener("wheel",edit);

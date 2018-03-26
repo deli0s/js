@@ -282,11 +282,17 @@ function addReddit(){
 			aReddit.style.marginRight="-30px";
 			aReddit.appendChild(img_R);
 			aReddit.setAttribute('target','_blank');
-			var link_="https://www.reddit.com/search?q="+(document.title.substr(0,document.title.indexOf(" -")).replace(/ /g,"+"));
+			var title=get_title_Ep();
+			var link_="https://www.reddit.com/search?q="+title;
 			aReddit.setAttribute('href',link_);
 			container.appendChild(aReddit);
 		}
 	}
+}
+function get_title_Ep(){
+	var title=document.title.substr(0,document.title.indexOf(" -")).replace(/ /g,"+");
+	var title2=title.replace(/\+\([0-9][0-9][0-9][0-9]\)/g,"");
+	return title2;
 }
 function add_imdb_Ep(){
 	var imdb_Ep=document.getElementById("imdb_Ep");
@@ -305,7 +311,8 @@ function add_imdb_Ep(){
 			a_imdb_Ep.setAttribute('target','_blank');
 			var _tAll=document.title.replace(" - ","");
 			var link_="http://www.imdb.com/find?ref_=nv_sr_fn&q="+_tAll.substr(_tAll.indexOf(" - ")+3,999).replace(/ /g,"+");
-			a_imdb_Ep.setAttribute('href',link_);
+			var title=get_title_Ep();
+			a_imdb_Ep.setAttribute('href',link_+" "+title);
 			container.appendChild(a_imdb_Ep);
 		}
 	}
@@ -440,6 +447,14 @@ function moveCalendar(){
 				}
 			}
 		}
+	}
+	var col_right=document.getElementsByClassName("col-md-4 right-column")[0];
+	var col_main=document.getElementsByClassName("col-md-8 main-column")[0];
+	if (existeix(col_right) && existeix(col_main)){
+		col_right.style.width="100%";
+		col_right.style.left="0";
+		col_main.style.width="100%";
+		col_main.style.right="0";
 	}
 }
 function checkName(name){

@@ -524,7 +524,7 @@ function makePirateLink(txt){
 	var nom=s_name+"%20s"+s_season+"e"+s_ep;
 	var link_s0=nom.replace(/'s/g,"s");
 	var link_s=link_s0.replace(/\./g,"%20");
-	var link_=thepiratebay+link_s.replace(/-/g,"%20")+"/0/7/208";
+	var link_=thepiratebay+link_s.replace(/\ \([0-9][0-9][0-9][0-9]\)/g,"").replace(/-/g,"%20")+"/0/7/208";
 	return link_;
 }
 function splitEp(txt){

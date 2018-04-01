@@ -548,7 +548,9 @@ function newColors(){
 	var _epis=document.getElementsByClassName("episode ellipsis");
 	for (var _iep=0;_iep<_epis.length;_iep++){
 		var _ep=_epis[_iep];
-		var name=_ep.innerHTML.replace(/ [0-9]*x[0-9]*/,'');
+		var nEp=_ep.innerHTML.match(/ [0-9]*x[0-9]*/)[0];
+		var pos=_ep.innerHTML.indexOf(nEp);
+		var name=_ep.innerHTML.replace(nEp,'').substr(0,pos);
 		var code="#"+intToRGB(hashCode(name));
 		var aux=checkName(name);
 		if (aux!==-1){

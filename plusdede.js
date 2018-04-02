@@ -457,13 +457,6 @@ function moveCalendar(){
 		col_main.style.right="0";
 	}
 }
-function checkName(name){
-	var _coloritos = ["#154889","#B42041","#D9C022","#3e753b","#8A5A83"];
-	var _series = ["Doctor Who (2005)","The Flash (2014)","The Simpsons","Arrow","Rick and Morty"];
-	var pos=_series.indexOf(name);
-	if (pos<0) return pos;
-	return _coloritos[_series.indexOf(name)];
-}
 function linksToday(){
 	var today=document.getElementsByClassName("cal-day-today")[0];
 	if (existeix(today)){
@@ -544,6 +537,13 @@ function splitEp(txt){
 	var _splited=[s_name,s_season_n,s_ep_n];
 	return _splited;
 }
+function checkName(name){
+	var _coloritos = ["#154889","#B42041","#D9C022","#3e753b","#8A5A83","#0f2131","#4a5258","#4a2a4e"];
+	var _series = ["Doctor Who (2005)","The Flash (2014)","The Simpsons","Arrow","Rick and Morty","Gotham","Marvel's Agents of S.H.I.E.L.D.","Legion"];
+	var pos=_series.indexOf(name);
+	if (pos<0) return pos;
+	return _coloritos[_series.indexOf(name)];
+}
 function newColors(){
 	var _epis=document.getElementsByClassName("episode ellipsis");
 	for (var _iep=0;_iep<_epis.length;_iep++){
@@ -555,6 +555,12 @@ function newColors(){
 		var aux=checkName(name);
 		if (aux!==-1){
 			code=aux;
+		}else{
+			if (code[1]=="B" || code[1]=="E" || code[1]=="2" || code[1]=="8"){
+				code=code.substr(0,1)+"0"+code.substr(1,code.length-2);
+			}else if (code[1]=="6"){
+				code="#0"+code.substr(2,code.length-1);
+			}
 		}
 		_ep.style.backgroundColor=code;
 	}
@@ -568,7 +574,6 @@ function hashCode(str){
 }
 function intToRGB(i){
 		var c = (i & 0x00FFFFFF).toString(16).toUpperCase();
-		
 		return "00000".substring(0, 6 - c.length) + c;
 }
 function deleteMe(child){

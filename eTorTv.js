@@ -12,7 +12,12 @@ function directTorrent(){
 				while (!trobat && i_td<td.length){
 					var td_in=td[i_td].innerHTML;
 					var n_ep=w_h.substr(w_h.length-6-9,6);
-					trobat=(td_in.indexOf("720p")>-1 && td_in.indexOf(n_ep)>-1);
+					var td2_in=td[i_td+1].innerHTML;
+					var time=Number(td2_in.match(/[0-9]+/)[0]);
+					var hour=-1;
+					if (td2_in.indexOf("hour")>-1) hour=time;
+					else if (td2_in.indexOf("minute")>-1) hour=time/60;
+					trobat=(hour>-1 && hour<24 && td_in.indexOf("720p")>-1 && td_in.indexOf(n_ep)>-1);
 					if (!trobat) i_td+=8;
 				}
 				if (trobat){
@@ -27,4 +32,7 @@ function directTorrent(){
 }
 function existeix(nom){
 	return (nom!==undefined && nom!==null);
+}
+function cout(txt){
+	console.log(txt);
 }

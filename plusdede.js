@@ -328,7 +328,7 @@ function addPirate(txt,child){
 	a_Pirate.style.zIndex="1";
 	a_Pirate.appendChild(img_P);
 	a_Pirate.setAttribute('target','_blank');
-	var link_=makePirateLink(txt);
+	var link_=makePirateLink(txt,1);
 	a_Pirate.setAttribute('href',link_);
 	child.insertBefore(a_Pirate,child.lastChild);
 }
@@ -504,12 +504,12 @@ function addDayLinks(day){
 			today_a[i_a].dataset.real_link=real_link;
 		}
 		linkDirect(_serie_nom,_serie,real_link,1);
-		var link_=makePirateLink(_serie_nom);
+		var link_=makePirateLink(_serie_nom,0).replace(thepiratebay,"https://www.ettv.tv/torrents-search.php?search=")+"+magnetik";
 		today_a[i_a].setAttribute('target','_blank');
 		today_a[i_a].href=link_;
 	}
 }
-function makePirateLink(txt){
+function makePirateLink(txt,ask_hd){
 	var splited=splitEp(txt);
 	var s_name=splited[0];
 	var s_season_n=splited[1];
@@ -519,7 +519,8 @@ function makePirateLink(txt){
 	var nom=s_name+"%20s"+s_season+"e"+s_ep;
 	var link_s0=nom.replace(/'s/g,"s");
 	var link_s=link_s0.replace(/\./g,"%20");
-	var link_=thepiratebay+link_s.replace(/\ \([0-9][0-9][0-9][0-9]\)/g,"").replace(/-/g,"%20")+"/0/7/208";
+	var link_=thepiratebay+link_s.replace(/\ \([0-9][0-9][0-9][0-9]\)/g,"").replace(/-/g,"%20");
+	if (ask_hd) link_+="/0/7/208";
 	return link_;
 }
 function splitEp(txt){

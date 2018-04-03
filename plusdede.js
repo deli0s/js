@@ -310,7 +310,7 @@ function add_imdb_Ep(){
 			a_imdb_Ep.appendChild(img_I);
 			a_imdb_Ep.setAttribute('target','_blank');
 			var _tAll=document.title.replace(" - ","");
-			var link_="http://www.imdb.com/find?ref_=nv_sr_fn&q="+_tAll.substr(_tAll.indexOf(" - ")+3,999).replace(/ /g,"+");
+			var link_="https://www.imdb.com/find?ref_=nv_sr_fn&q="+_tAll.substr(_tAll.indexOf(" - ")+3,999).replace(/ /g,"+");
 			var title=get_title_Ep();
 			a_imdb_Ep.setAttribute('href',link_+" "+title);
 			container.appendChild(a_imdb_Ep);

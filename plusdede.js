@@ -231,8 +231,7 @@ function getLink(src_lk,full_name,s_season,s_ep){
 				for (var i=1;i<ep_ep;i++){
 					data=data.replace("data-id","");
 				}
-				var data_id=data.indexOf("data-id");
-				id_=data.substr(data_id+10,6);
+				id_=data.match(/data-id=\\"[0-9]*/)[0].replace('data-id=\\"','');
 				setCookie(_name,id_,2);//2 days
 			}
 		}

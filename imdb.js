@@ -16,8 +16,10 @@ function edit(){
 				if (!existeix(global)){
 					addFilmaffinity(title,child);
 					addPlusdede(title,child);
-					addWopelis(title2,child);
 					addPirate(title,child);
+					var url=window.location.href;var _pos=url.indexOf("title/tt")+6;
+					var imdb_id=url.substring(_pos,_pos+9);
+					addTorrent(imdb_id,child);
 					addRating();
 				}
 			}
@@ -87,22 +89,22 @@ function addPlusdede(nom,child_peli){
 	a_Plusdede.setAttribute('href',"https://www.plusdede.com/search/"+nom.replace(/ /g,"%20"));
 	child_peli.appendChild(a_Plusdede);
 }
-function addWopelis(nom,child_peli){
-	var a_Wopelis=document.createElement("a");
+function addTorrent(imdb_id,child_peli){
+	var a_Torrent=document.createElement("a");
 	var img_W=document.createElement("img");
-	img_W.src="http://www.wopelis.com/favicon.ico";
+	img_W.src="https://www.torrenting.com/T-favicon.ico";
 	img_W.style.width="19px";
 	img_W.style.textDecoration="none";
-	a_Wopelis.style.textDecoration="none";
-	a_Wopelis.style.padding="0";
-	a_Wopelis.style.margin="3px";
-	a_Wopelis.style.marginTop="0px";
-	a_Wopelis.style.zIndex="1";
-	a_Wopelis.style.display="inline-block";
-	a_Wopelis.setAttribute('target','_blank');
-	a_Wopelis.appendChild(img_W);
-	a_Wopelis.setAttribute('href',"http://www.wopelis.com/buscar.php?texto="+nom.replace(/ /g,"+"));
-	child_peli.appendChild(a_Wopelis);
+	a_Torrent.style.textDecoration="none";
+	a_Torrent.style.padding="0";
+	a_Torrent.style.margin="3px";
+	a_Torrent.style.marginTop="0px";
+	a_Torrent.style.zIndex="1";
+	a_Torrent.style.display="inline-block";
+	a_Torrent.setAttribute('target','_blank');
+	a_Torrent.appendChild(img_W);
+	a_Torrent.setAttribute('href',"https://www.torrenting.com/movies?q="+imdb_id+"&r0=&r1=&y0=&y1=");
+	child_peli.appendChild(a_Torrent);
 }
 function addPirate(nom,child_peli){
 	var a_Pirate=document.createElement("a");

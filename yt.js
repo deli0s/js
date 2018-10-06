@@ -48,13 +48,6 @@ function findTextArray(txt,arr,bold){
 		do{
 			trobat=(txt.innerHTML.toLowerCase().indexOf(arr[try_n].toLowerCase())>-1);
 			if (trobat && bold){
-				/*var a_I=txt.getElementsByTagName("a")[0].id;
-				var a_C=txt.getElementsByTagName("a")[0].className;
-				var a_str='id="'+a_I+'" class="'+a_C+'"';
-				txt.innerHTML=txt.innerHTML.replaceAll(arr[try_n],"</a><a "+a_str+"><strong>"+arr[try_n]+"</strong></a><a "+a_str+">");
-				if (txt.innerHTML.indexOf("strong")==-1){
-					txt.innerHTML=txt.innerHTML.replaceAll(arr[try_n].toLowerCase(),"</a><a "+a_str+"><strong>"+arr[try_n]+"</strong></a><a "+a_str+">");
-				}*/
 				txt.getElementsByTagName("a")[0].innerText=txt.getElementsByTagName("a")[0].innerText.replace(arr[try_n],"<"+arr[try_n]+">");
 				if (txt.innerHTML.indexOf("strong")==-1){
 					txt.getElementsByTagName("a")[0].innerText=txt.getElementsByTagName("a")[0].innerText.replace(arr[try_n].toLowerCase(),"<"+arr[try_n]+">");

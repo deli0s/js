@@ -25,7 +25,7 @@ function actorsFilter(video){
 		var title_=video.getElementsByTagName("a")[2];
 		var h3_=video.getElementsByTagName("h3")[0];
 		var shows="Graham Norton,Jimmy Fallon,Jimmy Kimmel,Stephen Colbert,Team Coco,James Corden";
-		if (!(findTextArray(title_,shows.split(",")) && !findTextArray(h3_,actors))){
+		if (!(findTextArray(title_,shows.split(","),false) && !findTextArray(h3_,actors,true))){
 			video.style.opacity="1";
 		}
 		video.className+=_class;
@@ -34,22 +34,30 @@ function actorsFilter(video){
 
 function t_(video,title_str,h3_array){//title
 	var title_=video.getElementsByTagName("a")[2];
+	if (!title_) return false;
 	var h3_=video.getElementsByTagName("h3")[0];
 	var title_found=(title_.innerHTML.toLowerCase().indexOf(title_str.toLowerCase())>-1);
 	if (!title_found) return false;
-	return !findTextArray(h3_,h3_array.split(","));
+	return !findTextArray(h3_,h3_array.split(","),false);
 }
 
-function findTextArray(txt,arr){
+function findTextArray(txt,arr,bold){
 	if (arr.length>1){
 		var try_n=0;
 		var trobat=false;
 		do{
 			trobat=(txt.innerHTML.toLowerCase().indexOf(arr[try_n].toLowerCase())>-1);
-			if (trobat){
-				txt.innerHTML=txt.innerHTML.replace(arr[try_n],"</a><a><strong>"+arr[try_n]+"</strong></a><a>");
+			if (trobat && bold){
+				/*var a_I=txt.getElementsByTagName("a")[0].id;
+				var a_C=txt.getElementsByTagName("a")[0].className;
+				var a_str='id="'+a_I+'" class="'+a_C+'"';
+				txt.innerHTML=txt.innerHTML.replaceAll(arr[try_n],"</a><a "+a_str+"><strong>"+arr[try_n]+"</strong></a><a "+a_str+">");
 				if (txt.innerHTML.indexOf("strong")==-1){
-					txt.innerHTML=txt.innerHTML.replace(arr[try_n].toLowerCase(),"</a><a><strong>"+arr[try_n]+"</strong></a><a>");
+					txt.innerHTML=txt.innerHTML.replaceAll(arr[try_n].toLowerCase(),"</a><a "+a_str+"><strong>"+arr[try_n]+"</strong></a><a "+a_str+">");
+				}*/
+				txt.getElementsByTagName("a")[0].innerText=txt.getElementsByTagName("a")[0].innerText.replace(arr[try_n],"<"+arr[try_n]+">");
+				if (txt.innerHTML.indexOf("strong")==-1){
+					txt.getElementsByTagName("a")[0].innerText=txt.getElementsByTagName("a")[0].innerText.replace(arr[try_n].toLowerCase(),"<"+arr[try_n]+">");
 				}
 			}
 			try_n++;
@@ -81,13 +89,18 @@ function cout(txt){//per fer proves
 	console.log(txt);
 }
 
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
+
 reload();
 function reload(){
 	try{
 		edit();
 		addCss();
 	}catch(err){
-		console.log("error");
+		console.log(err);
 	}
 }
 function addCss(){

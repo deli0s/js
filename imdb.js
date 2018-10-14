@@ -15,7 +15,7 @@ function edit(){
 				var global=document.getElementById("global");
 				if (!existeix(global)){
 					addFilmaffinity(title,child);
-					addPlusdede(title,child);
+					addMegadede(title,child);
 					addPirate(title,child);
 					var url=window.location.href;var _pos=url.indexOf("title/tt")+6;
 					var imdb_id=url.substring(_pos,_pos+9);
@@ -71,23 +71,23 @@ function addRating(){
 		}
 	}
 }
-function addPlusdede(nom,child_peli){
-	var a_Plusdede=document.createElement("a");
+function addMegadede(nom,child_peli){
+	var a_Megadede=document.createElement("a");
 	var img_Por=document.createElement("img");
-	img_Por.src="https://cdn.plusdede.com/favicon-16x16.png";
+	img_Por.src="https://cdn.megadede.com/favicon-16x16.png";
 	img_Por.style.width="19px";
 	img_Por.style.textDecoration="none";
-	a_Plusdede.id="global";
-	a_Plusdede.style.textDecoration="none";
-	a_Plusdede.style.padding="0";
-	a_Plusdede.style.margin="3px";
-	a_Plusdede.style.marginTop="0px";
-	a_Plusdede.style.zIndex="1";
-	a_Plusdede.style.display="inline-block";
-	a_Plusdede.setAttribute('target','_blank');
-	a_Plusdede.appendChild(img_Por);
-	a_Plusdede.setAttribute('href',"https://www.plusdede.com/search/"+nom.replace(/ /g,"%20"));
-	child_peli.appendChild(a_Plusdede);
+	a_Megadede.id="global";
+	a_Megadede.style.textDecoration="none";
+	a_Megadede.style.padding="0";
+	a_Megadede.style.margin="3px";
+	a_Megadede.style.marginTop="0px";
+	a_Megadede.style.zIndex="1";
+	a_Megadede.style.display="inline-block";
+	a_Megadede.setAttribute('target','_blank');
+	a_Megadede.appendChild(img_Por);
+	a_Megadede.setAttribute('href',"https://www.megadede.com/search/"+nom.replace(/ /g,"%20"));
+	child_peli.appendChild(a_Megadede);
 }
 function addTorrent(imdb_id,child_peli){
 	var a_Torrent=document.createElement("a");

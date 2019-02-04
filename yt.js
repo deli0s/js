@@ -24,7 +24,7 @@ function actorsFilter(video){
 	if (video.className.indexOf(_class)==-1){
 		var title_=video.getElementsByTagName("a")[2];
 		var h3_=video.getElementsByTagName("h3")[0];
-		var shows="Graham Norton,Jimmy Fallon,Jimmy Kimmel,Stephen Colbert,Team Coco,James Corden";
+		var shows="TheEllenShow,Graham Norton,Jimmy Fallon,Jimmy Kimmel,Stephen Colbert,Team Coco,James Corden";
 		if (!(findTextArray(title_,shows.split(","),false) && !findTextArray(h3_,actors,true))){
 			video.style.opacity="1";
 		}

@@ -1,40 +1,15 @@
 var thepiratebay="https://thepiratebay.cr/search/";
 function edit(){
 	if (window.location.href.indexOf("title") > -1){
-		let queryAllTopicsButton = document.querySelector('[class*="AllTopicsButton"');
-		if (queryAllTopicsButton){
-			let AllTopicsButton = queryAllTopicsButton[0];
-			let queryTitleText = document.querySelector('[class*="TitleHeader__TitleText"');
-			if (AllTopicsButton && queryTitleText){
-				let TitleText = queryTitleText[0];
-				if (TitleText){
-					addFilmaffinity(TitleText, AllTopicsButton);
-				}
+		let AllTopicsButton = document.querySelector('[class*="AllTopicsButton"');
+		if (AllTopicsButton){
+			let TitleText = document.querySelector('[class*="TitleHeader__TitleText"');
+			
+			if (TitleText){
+				let title = TitleText.innerText;
+				addFilmaffinity(title, AllTopicsButton);
 			}
 		}
-		/*var title_=document.getElementsByTagName("h1")[0];
-		if (existeix(title_)){
-			var originalTitle=document.getElementsByClassName("originalTitle")[0];
-			var title2=title_.innerHTML.substr(0,title_.innerHTML.indexOf("&nbsp"));
-			if (existeix(originalTitle)){
-				var title=originalTitle.innerHTML.substr(0,originalTitle.innerHTML.indexOf("<span"));
-			}else{
-				var title=title2;
-			}
-			var child=document.getElementsByClassName("subtext")[0];
-			if (existeix(child)){
-				var global=document.getElementById("global");
-				if (!existeix(global)){
-					addFilmaffinity(title,child);
-					addMegadede(title,child);
-					addPirate(title,child);
-					var url=window.location.href;var _pos=url.indexOf("title/tt")+6;
-					var imdb_id=url.substring(_pos,_pos+9);
-					addTorrent(imdb_id,child);
-					addRating();
-				}
-			}
-		}*/
 	}
 	if (window.location.href.indexOf("releaseinfo") > -1){
 		var dates_table=document.getElementById("release_dates");
@@ -151,7 +126,8 @@ function addFilmaffinity(nom,child_peli){
 	a_FA.setAttribute('target','_blank');
 	a_FA.appendChild(img_FA);
 	a_FA.setAttribute('href',"http://www.filmaffinity.com/es/search.php?stext="+nom.replace(/ /g,"+")+"&stype=title");
-	child_peli.appendChild(a_FA);
+	let peli_parent = child_peli.parentNode;
+	peli_parent.insertBefore(a_FA, child_peli);
 }
 function existeix(nom){
 	return (nom!==undefined && nom!==null);

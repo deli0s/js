@@ -1,7 +1,18 @@
 var thepiratebay="https://thepiratebay.cr/search/";
 function edit(){
 	if (window.location.href.indexOf("title") > -1){
-		var title_=document.getElementsByTagName("h1")[0];
+		let queryAllTopicsButton = document.querySelector('[class*="AllTopicsButton"');
+		if (queryAllTopicsButton){
+			let AllTopicsButton = queryAllTopicsButton[0];
+			let queryTitleText = document.querySelector('[class*="TitleHeader__TitleText"');
+			if (AllTopicsButton && queryTitleText){
+				let TitleText = queryTitleText[0];
+				if (TitleText){
+					addFilmaffinity(TitleText, AllTopicsButton);
+				}
+			}
+		}
+		/*var title_=document.getElementsByTagName("h1")[0];
 		if (existeix(title_)){
 			var originalTitle=document.getElementsByClassName("originalTitle")[0];
 			var title2=title_.innerHTML.substr(0,title_.innerHTML.indexOf("&nbsp"));
@@ -23,7 +34,7 @@ function edit(){
 					addRating();
 				}
 			}
-		}
+		}*/
 	}
 	if (window.location.href.indexOf("releaseinfo") > -1){
 		var dates_table=document.getElementById("release_dates");

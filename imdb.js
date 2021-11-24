@@ -1,13 +1,16 @@
 var thepiratebay="https://thepiratebay.cr/search/";
 function edit(){
 	if (window.location.href.indexOf("title") > -1){
-		let AllTopicsButton = document.querySelector('[class*="AllTopicsButton"');
-		if (AllTopicsButton){
-			let TitleText = document.querySelector('[class*="TitleHeader__TitleText"');
-			
-			if (TitleText){
-				let title = TitleText.innerText;
-				addFilmaffinity(title, AllTopicsButton);
+		let filmaffinity = document.getElementById('filmaffinity');
+		if (!filmaffinity){
+			let AllTopicsButton = document.querySelector('[class*="AllTopicsButton"');
+			if (AllTopicsButton){
+				let TitleText = document.querySelector('[class*="TitleHeader__TitleText"');
+				
+				if (TitleText){
+					let title = TitleText.innerText;
+					addFilmaffinity(title, AllTopicsButton);
+				}
 			}
 		}
 	}
@@ -123,7 +126,7 @@ function addFilmaffinity(nom,child_peli){
 	a_FA.style.marginTop="0px";
 	a_FA.style.zIndex="1";
 	a_FA.style.display="inline-block";
-	a_FA.class="filmaffinity";
+	a_FA.setAttribute("id", "filmaffinity");
 	a_FA.setAttribute('target','_blank');
 	a_FA.appendChild(img_FA);
 	a_FA.setAttribute('href',"http://www.filmaffinity.com/es/search.php?stext="+nom.replace(/ /g,"+")+"&stype=title");

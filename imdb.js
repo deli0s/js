@@ -123,6 +123,7 @@ function addFilmaffinity(nom,child_peli){
 	a_FA.style.marginTop="0px";
 	a_FA.style.zIndex="1";
 	a_FA.style.display="inline-block";
+	a_FA.class="filmaffinity";
 	a_FA.setAttribute('target','_blank');
 	a_FA.appendChild(img_FA);
 	a_FA.setAttribute('href',"http://www.filmaffinity.com/es/search.php?stext="+nom.replace(/ /g,"+")+"&stype=title");

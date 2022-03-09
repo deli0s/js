@@ -1,5 +1,7 @@
+var _class_video_checked = "checkinsky";
+
 function edit(){
-	if (window.location.href.indexOf("subscriptions") > -1){
+	if (window.location.href.includes("subscriptions")){
 		var video_str="ytd-grid-video-renderer";
 		var videos=document.getElementsByTagName(video_str);
 		if (existeix(videos)){
@@ -20,15 +22,17 @@ function edit(){
 }
 
 function actorsFilter(video){
-	var _class=" riki_tiki_checked";
-	if (video.className.indexOf(_class)==-1){
-		var title_=video.getElementsByTagName("a")[2];
-		var h3_=video.getElementsByTagName("h3")[0];
+	if (!video.className.includes(_class_video_checked)){
+		var title_ = video.getElementsByTagName("a")[2];
+		var h3_ = video.getElementsByTagName("h3")[0];
+		if (h3_){
+			h3_ = h3_.getElementsByTagName("a")[0];
+		}
 		var shows="TheEllenShow,Graham Norton,Jimmy Fallon,Jimmy Kimmel,Stephen Colbert,Team Coco,James Corden";
 		if (!(findTextArray(title_,shows.split(","),false) && !findTextArray(h3_,actors,true))){
 			video.style.opacity="1";
 		}
-		video.className += _class;
+		video.className += " " + _class_video_checked;
 	}
 }
 
@@ -36,7 +40,7 @@ function t_(video,title_str,h3_array){//title
 	var title_=video.getElementsByTagName("a")[2];
 	if (!title_) return false;
 	var h3_=video.getElementsByTagName("h3")[0];
-	var title_found=(title_.innerHTML.toLowerCase().indexOf(title_str.toLowerCase())>-1);
+	var title_found=(title_.innerHTML.toLowerCase().includes(title_str.toLowerCase()));
 	if (!title_found) return false;
 	return !findTextArray(h3_,h3_array.split(","),false);
 }
@@ -46,11 +50,11 @@ function findTextArray(txt,arr,bold){
 		var try_n=0;
 		var trobat=false;
 		do{
-			trobat=(txt.innerHTML.toLowerCase().indexOf(arr[try_n].toLowerCase())>-1);
+			trobat=(txt.innerHTML.toLowerCase().includes(arr[try_n].toLowerCase()));
 			if (trobat && bold){
-				txt.innerHTML=txt.innerHTML.replaceAll(arr[try_n],"_"+arr[try_n]+"_");
-				if (txt.innerHTML.indexOf("_")==-1){
-					txt.innerHTML=txt.innerHTML.replaceAll(arr[try_n].toLowerCase(),"_"+arr[try_n]+"_");
+				txt.innerHTML = txt.innerHTML.replaceAll(arr[try_n],"<span style=\"color: #ff0000;\">" + arr[try_n] + "</span>");
+				if (!txt.innerHTML.includes("color: #ff0000")){
+					txt.innerHTML = txt.innerHTML.replaceAll(arr[try_n].toLowerCase(),"<span style=\"color: #ff0000;\">" + arr[try_n] + "</span>");
 				}
 			}
 			try_n++;
@@ -58,7 +62,7 @@ function findTextArray(txt,arr,bold){
 		return (trobat);
 	}
 	txt_str=arr[0];
-	var txt_found=(txt.innerHTML.toLowerCase().indexOf(txt_str.toLowerCase())>-1);
+	var txt_found=(txt.innerHTML.toLowerCase().includes(txt_str.toLowerCase()));
 	return (txt_found);
 }
 
@@ -99,10 +103,10 @@ function reload(){
 function addCss(){
 	var css = document.createElement("style");
 	css.type = "text/css";
-	if (window.location.href.indexOf("subscriptions") > -1){
-		css.innerHTML = ".style-scope .ytd-grid-renderer .videoblocker-allowed { opacity: 0.4; } .style-scope .ytd-grid-renderer .videoblocker-allowed:hover { opacity: 1; }";
+	if (window.location.href.includes("subscriptions")){
+		css.innerHTML = "." + _class_video_checked + " { opacity: 0.4; } " + "." + _class_video_checked + ":hover { opacity: 1; }";
 	}else{
-		css.innerHTML = ".style-scope .ytd-grid-renderer .videoblocker-allowed { opacity: 1; }";
+		css.innerHTML = ".style-scope .ytd-grid-renderer { opacity: 1; }";
 	}
 	document.body.appendChild(css);
 }

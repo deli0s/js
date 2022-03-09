@@ -20,7 +20,7 @@ function edit(){
 }
 
 function actorsFilter(video){
-	var _class="riki_tiki_checked";
+	var _class=" riki_tiki_checked";
 	if (video.className.indexOf(_class)==-1){
 		var title_=video.getElementsByTagName("a")[2];
 		var h3_=video.getElementsByTagName("h3")[0];
@@ -28,7 +28,7 @@ function actorsFilter(video){
 		if (!(findTextArray(title_,shows.split(","),false) && !findTextArray(h3_,actors,true))){
 			video.style.opacity="1";
 		}
-		video.className+=_class;
+		video.className += _class;
 	}
 }
 

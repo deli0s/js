@@ -1,15 +1,24 @@
 var thepiratebay="https://thepiratebay.cr/search/";
 function edit(){
 	if (window.location.href.indexOf("title") > -1){
-		let filmaffinity = document.getElementById('filmaffinity');
-		if (!filmaffinity){
-			let AllTopicsButton = document.querySelector('[class*="AllTopicsButton"');
-			if (AllTopicsButton){
-				let TitleText = document.querySelector('[class*="TitleHeader__TitleText"');
-				
-				if (TitleText){
-					let title = TitleText.innerText;
-					addFilmaffinity(title, AllTopicsButton);
+		let AllTopicsButton = document.querySelector('[class*="AllTopicsButton"');
+		if (AllTopicsButton){
+			let TitleText = document.querySelector('[class*="TitleHeader__TitleText"');
+			
+			if (TitleText){
+				let title = TitleText.innerText;
+				addFilmaffinity(title, AllTopicsButton);
+				addSonarr(title, AllTopicsButton);
+			}
+			
+			let url = window.location.href;
+			if (url){
+				let l = url.replace("https://www.imdb.com/title/", "");
+				if (l){
+					let imdb_id = l.split("/")[0];
+					if (imdb_id){
+						addRadarr(imdb_id, AllTopicsButton);
+					}
 				}
 			}
 		}
@@ -45,93 +54,45 @@ function edit(){
 	}
 }//end edit
 
-function addRating(){
-	var _l="https://tvplot.herokuapp.com/";
-	var ratings_wrapper=document.getElementsByClassName("ratings_wrapper")[0];
-	if (existeix(ratings_wrapper)){
-		var span=ratings_wrapper.getElementsByTagName("span")[0];
-		if (existeix(span)){
-			var _in=span.innerHTML;
-			var _h=window.location.href;
-			var _id_s="title/";
-			var _id_p=_h.indexOf(_id_s);
-			var _id=_h.substr(_id_p+_id_s.length,_h.length-_id_p);
-			span.innerHTML='<a target="_blank" href="'+_l+_id+'">'+_in+'</a>';
-		}
+function addBtn(href,child_peli,id,src){
+	let el = document.getElementById(id);
+	if (!el){
+		var a=document.createElement("a");
+		var img=document.createElement("img");
+		img.src=src;
+		img.style.textDecoration="none";
+		img.style.width="19px";
+		a.style.textDecoration="none";
+		a.style.padding="0";
+		a.style.margin="3px";
+		a.style.marginTop="0px";
+		a.style.zIndex="1";
+		a.style.display="inline-block";
+		a.setAttribute("id", id);
+		a.setAttribute('target','_blank');
+		a.appendChild(img);
+		a.setAttribute('href',href);
+		let peli_parent = child_peli.parentNode;
+		peli_parent.insertBefore(a, child_peli);
 	}
 }
-function addMegadede(nom,child_peli){
-	var a_Megadede=document.createElement("a");
-	var img_Por=document.createElement("img");
-	img_Por.src="https://cdn.megadede.com/favicon-16x16.png";
-	img_Por.style.width="19px";
-	img_Por.style.textDecoration="none";
-	a_Megadede.id="global";
-	a_Megadede.style.textDecoration="none";
-	a_Megadede.style.padding="0";
-	a_Megadede.style.margin="3px";
-	a_Megadede.style.marginTop="0px";
-	a_Megadede.style.zIndex="1";
-	a_Megadede.style.display="inline-block";
-	a_Megadede.setAttribute('target','_blank');
-	a_Megadede.appendChild(img_Por);
-	a_Megadede.setAttribute('href',"https://www.megadede.com/search/"+nom.replace(/ /g,"%20"));
-	child_peli.appendChild(a_Megadede);
-}
-function addTorrent(imdb_id,child_peli){
-	var a_Torrent=document.createElement("a");
-	var img_W=document.createElement("img");
-	img_W.src="https://www.torrenting.com/T-favicon.ico";
-	img_W.style.width="19px";
-	img_W.style.textDecoration="none";
-	a_Torrent.style.textDecoration="none";
-	a_Torrent.style.padding="0";
-	a_Torrent.style.margin="3px";
-	a_Torrent.style.marginTop="0px";
-	a_Torrent.style.zIndex="1";
-	a_Torrent.style.display="inline-block";
-	a_Torrent.setAttribute('target','_blank');
-	a_Torrent.appendChild(img_W);
-	a_Torrent.setAttribute('href',"https://www.torrenting.com/movies?q="+imdb_id+"&r0=&r1=&y0=&y1=");
-	child_peli.appendChild(a_Torrent);
-}
-function addPirate(nom,child_peli){
-	var a_Pirate=document.createElement("a");
-	var img_P=document.createElement("img");
-	img_P.src="https://rawgit.com/deli0s/js/master/tpb.png";
-	img_P.style.width="19px";
-	img_P.style.textDecoration="none";
-	a_Pirate.style.textDecoration="none";
-	a_Pirate.style.padding="0";
-	a_Pirate.style.margin="3px";
-	a_Pirate.style.marginTop="0px";
-	a_Pirate.style.zIndex="1";
-	a_Pirate.style.display="inline-block";
-	a_Pirate.setAttribute('target','_blank');
-	a_Pirate.appendChild(img_P);
-	var link_s=thepiratebay+nom.replace(/'s/g,"s");
- 	var link_=link_s.replace(/-/g,"%20");
- 	a_Pirate.setAttribute('href',link_+"/0/7/207");
-	child_peli.appendChild(a_Pirate);
-}
 function addFilmaffinity(nom,child_peli){
-	var a_FA=document.createElement("a");
-	var img_FA=document.createElement("img");
-	img_FA.src="http://www.filmaffinity.com/favicon.png";
-	img_FA.style.textDecoration="none";
-	img_FA.style.width="19px";
-	a_FA.style.textDecoration="none";
-	a_FA.style.padding="0";
-	a_FA.style.margin="3px";
-	a_FA.style.marginTop="0px";
-	a_FA.style.zIndex="1";
-	a_FA.style.display="inline-block";
-	a_FA.setAttribute("id", "filmaffinity");
-	a_FA.setAttribute('target','_blank');
-	a_FA.appendChild(img_FA);
-	a_FA.setAttribute('href',"http://www.filmaffinity.com/es/search.php?stext="+nom.replace(/ /g,"+")+"&stype=title");
-	let peli_parent = child_peli.parentNode;
-	peli_parent.insertBefore(a_FA, child_peli);
+	let id = "filmaffinity";
+	let src = "http://www.filmaffinity.com/favicon.png";
+	let href = "http://www.filmaffinity.com/es/search.php?stext=" + nom.replace(/ /g,"+") + "&stype=title";
+	addBtn(href,child_peli,id,src);
+}
+function addRadarr(imdb_id,child_peli){
+	let id = "radarr";
+	let src = "https://radarr.video/img/favicon.ico";
+	let href = "http://localhost:7878/add/new?term=imdb%3A" + imdb_id;
+	addBtn(href,child_peli,id,src);
+}
+function addSonarr(nom,child_peli){
+	let id = "sonarr";
+	let src = "https://sonarr.tv/img/favicon.ico";
+	let href = "http://localhost:8989/add/new?term=" + nom;
+	addBtn(href,child_peli,id,src);
 }
 function existeix(nom){
 	return (nom!==undefined && nom!==null);

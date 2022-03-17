@@ -1,9 +1,8 @@
-var thepiratebay="https://thepiratebay.cr/search/";
 function edit(){
-	if (window.location.href.indexOf("title") > -1){
-		let AllTopicsButton = document.querySelector('[class*="AllTopicsButton"');
+	if (window.location.href.includes("title")){
+		let AllTopicsButton = document.querySelector('[aria-label="View all topics"]');
 		if (AllTopicsButton){
-			let TitleText = document.querySelector('[class*="TitleHeader__TitleText"');
+			let TitleText = document.getElementsByTagName("h1")[0];
 			
 			if (TitleText){
 				let title = TitleText.innerText;
@@ -23,7 +22,7 @@ function edit(){
 			}
 		}
 	}
-	if (window.location.href.indexOf("releaseinfo") > -1){
+	if (window.location.href.includes("releaseinfo")){
 		var dates_table=document.getElementById("release_dates");
 		if (existeix(dates_table)){
 			var dates=dates_table.getElementsByTagName("tr");
@@ -35,7 +34,7 @@ function edit(){
 				var dates_a=dates_tr.getElementsByTagName("a")[0];
 				if (existeix(dates_a)){
 					var dates_inner=dates_a.innerHTML;
-					if (dates_inner.indexOf("USA")>-1 || dates_inner.indexOf("Spain")>-1){
+					if (dates_inner.includes("USA") || dates_inner.includes("Spain")){
 						dates_a.style.color="#E7BE00";
 						trobats++;
 					}
@@ -98,11 +97,11 @@ function existeix(nom){
 	return (nom!==undefined && nom!==null);
 }
 function actors(){
-	if (window.location.href.indexOf("ls021034864")>-1){
+	if (window.location.href.includes("ls021034864")){
 		var filmosearch=document.getElementsByClassName("footer filmosearch")[0];
 		if (existeix(filmosearch)){
 			if (filmosearch.style.position!=="fixed"){
-				if (window.location.href.indexOf("mode=grid")==-1){
+				if (!window.location.href.includes("mode=grid")){
 					document.getElementsByClassName("global-sprite lister-mode grid")[0].click();
 				}
 				document.getElementById("main").style.width="96%";

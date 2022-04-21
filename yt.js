@@ -19,6 +19,10 @@ function edit(){
 			}
 		}
 	}
+	
+	if (window.location.href.includes("/shorts/")){
+		window.location = window.location.href.replace("/shorts/", "/watch?v=");
+	}
 }
 
 function actorsFilter(video){

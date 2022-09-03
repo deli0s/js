@@ -8,6 +8,7 @@ function edit(){
 				let title = TitleText.innerText;
 				addFilmaffinity(title, AllTopicsButton);
 				addSonarr(title, AllTopicsButton);
+				addJustwatch(title, AllTopicsButton);
 			}
 			
 			let url = window.location.href;
@@ -91,6 +92,12 @@ function addSonarr(nom,child_peli){
 	let id = "sonarr";
 	let src = "https://sonarr.tv/img/favicon.ico";
 	let href = "http://localhost:8989/add/new?term=" + nom;
+	addBtn(href,child_peli,id,src);
+}
+function addJustwatch(nom,child_peli){
+	let id = "justwatch";
+	let src = "https://www.justwatch.com/appassets/favicon.ico";
+	let href = "https://www.justwatch.com/es/buscar?q=" + nom;
 	addBtn(href,child_peli,id,src);
 }
 function existeix(nom){

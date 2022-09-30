@@ -54,7 +54,7 @@ function exportCalendar() {
 		if (c && c.includes(episode_cookie)) {
 				//res
 		} else {
-			if (c){
+			if (c) {
 				setCookie("uploaded_episodes", c + "|" + episode_cookie, 31);
 			} else {
 				setCookie("uploaded_episodes", episode_cookie, 31);
@@ -160,7 +160,7 @@ function formatFecha(week, title, h, m) {
 		mins = "0" + mins;
 	}
 
-	let res = d.getFullYear() + mes + dia + "T" + hora + mins + "00Z";
+	let res = d.getFullYear() + mes.toString() + dia.toString() + "T" + hora.toString() + mins.toString() + "00Z";
 	
 	return res;
 }

@@ -72,10 +72,14 @@ function exportCalendar() {
 			url:  'https://alerta.webcindario.com/calendar.php',
 			data: { episodes: JSON.stringify(arr_upload) },
 			type: "POST",
-			//dataType: 'json',
+            crossDomain: true,
+			dataType: 'json',
 			success: function(data) {
 				console.log('Response', data);
 				setCookie("errorUpload", data, 31);
+			},
+			error: function(err) {
+				console.log('e', err);
 			}
 		});
 	}
@@ -118,7 +122,22 @@ function uploadEpisode(serie, title_episode) {
 }
 
 function formatFecha(week, title, h, m) {
-	let d = new Date(week.innerText.match(/(\d+)/)[0] + " " + title.innerText);
+	let isDifferentMonth = week.classList.value.contains("CalendarDay-isDifferentMonth");
+	let week_dia = Number(week.innerText.match(/(\d+)/)[0]);
+	let mes_str = title.innerText;
+	let primer = new Date("1 " + mes_str);
+
+	let d = new Date(week_dia + " " + mes_str);
+	if (isDifferentMonth) {
+		if (week_dia < 15) {
+			primer.setMonth(primer.getMonth() + 1);
+		} else {
+			primer.setMonth(primer.getMonth() - 1);
+		}
+		
+		d = new Date(primer.getFullYear(), primer.getMonth(), week_dia);
+	}
+
 	d.setHours(h, m);
 
 	let mes = d.getMonth() + 1;

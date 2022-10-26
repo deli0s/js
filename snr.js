@@ -69,8 +69,8 @@ function exportCalendar() {
 
 	if (arr_upload.length > 0) {
 		$.ajax({
-			url:  'https://alerta.webcindario.com/calendar.php',
-			data: { episodes: JSON.stringify(arr_upload) },
+			url:  'https://calendar.webcindario.com/calendar.php',
+			data: { upload: 'i3bgYzH!hGoDb?WQZeD&N', episodes: JSON.stringify(arr_upload) },
 			type: "POST",
             crossDomain: true,
 			dataType: 'json',

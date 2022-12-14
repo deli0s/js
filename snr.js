@@ -226,5 +226,5 @@ function toggleWeek(e, week_id) {
 	}
 
 	toggleDivWeek(e.getAttribute("weeknum"), toggle);
-	setCookie(week_id, toggle, 365);
+	setCookie(week_id, toggle, 31);
 }

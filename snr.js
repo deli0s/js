@@ -52,7 +52,7 @@ function exportCalendar() {
 		let isAnime = anime && anime.includes(title);
 		if (isAnime) {
 			serie.classList.add('anime');
-			serie.outerHTML+=`</div><div style="display: inline; position: absolute; cursor: pointer; margin-top: 30px;"><a href="https://9anime.vc/filter?keyword=${title.replaceAll(' ', '+')}&type=2&status=2&season=&language=&sort=all&year=&genre=">🔗</a>`;
+			serie.outerHTML+=`</div><div style="display: inline; position: absolute; cursor: pointer; margin-top: 30px;"><a style="text-decoration: none;" href="https://9anime.vc/filter?keyword=${title.replaceAll(' ', '+')}&type=2&status=2&season=&language=&sort=all&year=&genre=">🔗</a>`;
 		}
 
 		let title_episode = title + ' ' + episode;

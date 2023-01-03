@@ -39,6 +39,9 @@ function addToggler() {
 function exportCalendar() {
 	let arr_upload = [];
 	let series = document.querySelectorAll("[class*='CalendarEvent-event']:not(.uploaded_php)");
+
+	let anime = getCookie("anime");
+
 	for (let i = 0; i < series.length; i ++) {
 		let serie = series[i];
 		serie.classList.add('uploaded_php');
@@ -46,13 +49,19 @@ function exportCalendar() {
 		let title = serie.querySelectorAll("[class*='CalendarEvent-seriesTitle']")[0].innerText;
 		let episode = serie.querySelectorAll("[class*='CalendarEvent-episodeInfo'] div")[1].innerText;
 
+		let isAnime = anime && anime.includes(title);
+		if (isAnime) {
+			serie.classList.add('anime');
+			serie.outerHTML+=`</div><div style="display: inline; position: absolute; cursor: pointer; margin-top: 30px;"><a href="https://9anime.vc/filter?keyword=${title.replaceAll(' ', '+')}&type=2&status=2&season=&language=&sort=all&year=&genre=">🔗</a>`;
+		}
+
 		let title_episode = title + ' ' + episode;
 
 		let episode_cookie = title_episode.replaceAll("|", " ");
 
 		let c = getCookie("uploaded_episodes");
 		if (c && c.includes(episode_cookie)) {
-				//res
+			//res
 		} else {
 			if (c) {
 				setCookie("uploaded_episodes", c + "|" + episode_cookie, 31);

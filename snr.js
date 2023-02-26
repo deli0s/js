@@ -49,12 +49,6 @@ function exportCalendar() {
 		let title = serie.querySelectorAll("[class*='CalendarEvent-seriesTitle']")[0].innerText;
 		let episode = serie.querySelectorAll("[class*='CalendarEvent-episodeInfo'] div")[1].innerText;
 
-		let isAnime = anime && anime.includes(title);
-		if (isAnime) {
-			serie.classList.add('anime');
-			serie.outerHTML+=`</div><div style="display: inline; position: absolute; cursor: pointer; margin-top: 30px;"><a style="text-decoration: none;" href="https://9anime.vc/filter?keyword=${title.replaceAll(' ', '+')}&type=2&status=2&season=&language=&sort=all&year=&genre=">🔗</a>`;
-		}
-
 		let title_episode = title + ' ' + episode;
 
 		let episode_cookie = title_episode.replaceAll("|", " ");
@@ -73,6 +67,12 @@ function exportCalendar() {
 			if (obj_episode) {
 				arr_upload.push(obj_episode);
 			}
+		}
+
+		let isAnime = anime && anime.includes(title);
+		if (isAnime) {
+			serie.classList.add('anime');
+			serie.outerHTML+=`</div><div style="display: inline; position: absolute; cursor: pointer; margin-top: 30px;"><a style="text-decoration: none;" href="https://9anime.vc/filter?keyword=${title.replaceAll(' ', '+')}&type=2&status=2&season=&language=&sort=all&year=&genre=">🔗</a>`;
 		}
 	}
 

@@ -2,7 +2,7 @@ var _class_video_checked = "checkinsky";
 
 function edit(){
 	if (window.location.href.includes("subscriptions")){
-		var video_str="ytd-grid-video-renderer";
+		var video_str="ytd-rich-item-renderer";
 		var videos=document.getElementsByTagName(video_str);
 		if (videos){
 			var size_videos=videos.length;
@@ -30,7 +30,7 @@ function edit(){
 
 function unwantedShorts(video){
 	var unwanted = ["alex alex alex","Alpha Betas"];
-	var user = video.getElementsByTagName("a")[3];
+	var user = video.getElementsByTagName("a")[4];
 	if (user && unwanted.includes(user.innerText)) {
 		var icon = video.getElementsByTagName("yt-icon")[0];
 		return icon;

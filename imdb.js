@@ -1,14 +1,14 @@
 function edit(){
 	if (window.location.href.includes("title")){
-		let AllTopicsButton = document.querySelector('[aria-label="View all topics"]');
-		if (AllTopicsButton){
+		let Button = document.querySelector('.ipc-page-section button');
+		if (Button){
 			let TitleText = document.getElementsByTagName("h1")[0];
 			
 			if (TitleText){
 				let title = TitleText.innerText;
-				addFilmaffinity(title, AllTopicsButton);
-				addSonarr(title, AllTopicsButton);
-				addJustwatch(title, AllTopicsButton);
+				addFilmaffinity(title, Button);
+				addSonarr(title, Button);
+				addJustwatch(title, Button);
 			}
 			
 			let url = window.location.href;
@@ -17,8 +17,16 @@ function edit(){
 				if (l){
 					let imdb_id = l.split("/")[0];
 					if (imdb_id){
-						addRadarr(imdb_id, AllTopicsButton);
+						addRadarr(imdb_id, Button);
 					}
+				}
+			}
+			
+			let btn_pro_div = Button.parentElement;
+			if (btn_pro_div) {
+				let btn_pro = btn_pro_div.getElementsByTagName('div')[0];
+				if (btn_pro) {
+					btn_pro.style.display = "none";
 				}
 			}
 		}

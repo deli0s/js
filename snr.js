@@ -72,7 +72,7 @@ function exportCalendar() {
 		let isAnime = anime && anime.includes(title);
 		if (isAnime) {
 			serie.classList.add('anime');
-			serie.outerHTML+=`</div><div style="display: inline; position: absolute; cursor: pointer; margin-top: 30px;"><a style="text-decoration: none;" href="https://9anime.to/filter?keyword=${title.replaceAll(' ', '+')}&country%5B%5D=120822&type%5B%5D=tv&status%5B%5D=releasing&sort=most_relevance">🔗</a>`;
+			serie.outerHTML+=`</div><div style="display: inline; position: absolute; cursor: pointer; margin-top: 30px;"><a style="text-decoration: none;" href="https://Aniwave.to/filter?keyword=${title.replaceAll(' ', '+')}&country%5B%5D=120822&type%5B%5D=tv&status%5B%5D=releasing&sort=most_relevance">🔗</a>`;
 		}
 	}
 

@@ -26,6 +26,19 @@ function edit(){
 	if (window.location.href.includes("/shorts/") && getCookie('shorts') != 'true'){
 		window.location = window.location.href.replace("/shorts/", "/watch?v=");
 	}
+	
+	if (window.location.href.includes("music.youtube.com")){
+		let artist = document.querySelector('.middle-controls .content-info-wrapper .yt-simple-endpoint');
+        if (artist) {
+            let artistName = artist.innerHTML;
+            if (artistName == 'The Weeknd') {
+                let nextBtn = document.querySelector('#left-controls .next-button');
+                if (nextBtn) {
+                    nextBtn.click()
+                }
+            }
+        }
+	}
 }
 
 function unwantedShorts(video){

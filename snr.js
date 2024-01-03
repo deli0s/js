@@ -40,7 +40,11 @@ function exportCalendar() {
 	let arr_upload = [];
 	let series = document.querySelectorAll("[class*='CalendarEvent-event']:not(.uploaded_php)");
 
-	let anime = getCookie("anime");
+	let anime_ck = getCookie("anime");
+	let anime = null;
+	if (anime_ck) {
+		anime = anime_ck.split("|");
+	}
 
 	for (let i = 0; i < series.length; i ++) {
 		let serie = series[i];

@@ -90,19 +90,26 @@ function exportCalendar() {
 	}
 
 	if (arr_upload.length > 0) {
-		$.ajax({
-			url:  'https://calendar.webcindario.com/calendar.php',
-			data: { upload: 'i3bgYzH!hGoDb?WQZeD&N', episodes: JSON.stringify(arr_upload) },
-			type: "POST",
-            crossDomain: true,
-			dataType: 'json',
-			success: function(data) {
-				console.log('Response', data);
-				setCookie("errorUpload", data, 31);
-			},
-			error: function(err) {
-				console.log('e', err);
+		let url = 'https://calendar.webcindario.com/calendar.php';
+		let formData = new FormData();
+		formData.append('upload', 'i3bgYzH!hGoDb?WQZeD&N');
+		formData.append('episodes', JSON.stringify(arr_upload));
+	
+		fetch(url, {
+			method: 'POST',
+			body: formData,
+			mode: 'cors',
+			headers: {
+				'Accept': 'application/json',
 			}
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log('Response', data);
+			setCookie("errorUpload", data, 31);
+		})
+		.catch(err => {
+			console.log('Error', err);
 		});
 	}
 }

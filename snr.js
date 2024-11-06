@@ -9,14 +9,14 @@ function doSomething() {
 		exportCalendar();
 	}
 	
-	let links = document.querySelectorAll("[class*='Details-links']")[0];
+	let links = document.querySelector("[class*='Details-links']");
 	if (links) {
 		links.addEventListener("mouseover", addFilmaffinity);
 	}
 }
 
 function addToggler() {
-	let title = document.querySelectorAll("[class*='CalendarHeader-titleDesktop']")[0];
+	let title = document.querySelector("[class*='CalendarHeader-titleDesktop']");
 	if (title) {
 		let weeks = document.querySelectorAll("[class*='CalendarDay-dayOfMonth']");
 		for (let i = 0; i < weeks.length; i += 7) {
@@ -39,6 +39,7 @@ function addToggler() {
 function exportCalendar() {
 	let arr_upload = [];
 	let series = document.querySelectorAll("[class*='CalendarEvent-event']:not(.uploaded_php)");
+	let seriesGroup = document.querySelectorAll("[class*='CalendarEventGroup-event']:not(.uploaded_php)");
 
 	let anime_ck = getCookie("anime");
 	let anime = null;
@@ -46,12 +47,44 @@ function exportCalendar() {
 		anime = anime_ck.split("|");
 	}
 
+	let arrEvents = getSeriesToUpload(series, anime);
+	let arrGroup = getSeriesToUpload(seriesGroup, anime);
+	arr_upload.concat(arrEvents);
+	arr_upload.concat(arrGroup);
+
+	if (arr_upload.length > 0) {
+		$.ajax({
+			url:  'https://calendar.webcindario.com/calendar.php',
+			data: { upload: 'i3bgYzH!hGoDb?WQZeD&N', episodes: JSON.stringify(arr_upload) },
+			type: "POST",
+            crossDomain: true,
+			dataType: 'json',
+			success: function(data) {
+				console.log('Response', data);
+				setCookie("errorUpload", data, 31);
+			},
+			error: function(err) {
+				console.log('e', err);
+			}
+		});
+	}
+}
+
+function getSeriesToUpload(series, anime) {
+	let arr_upload = new Array();
+
 	for (let i = 0; i < series.length; i ++) {
 		let serie = series[i];
 		serie.classList.add('uploaded_php');
 
-		let title = serie.querySelectorAll("[class*='CalendarEvent-seriesTitle']")[0].innerText;
-		let episode = serie.querySelectorAll("[class*='CalendarEvent-episodeInfo'] div")[1].innerText;
+		let title = serie.querySelector("[class*='seriesTitle']").innerText;
+		let episodeInfo = serie.querySelector("[class*='episodeInfo']");
+		let divEpisodeInfo = episodeInfo.querySelectorAll("div");
+		let episodeDiv = episodeInfo;
+		if (divEpisodeInfo.length > 0) {
+			episodeDiv = divEpisodeInfo[1];
+		}
+		let episode = episodeDiv.innerText;
 
 		let title_episode = title + ' ' + episode;
 
@@ -89,40 +122,18 @@ function exportCalendar() {
 		}
 	}
 
-	if (arr_upload.length > 0) {
-		let url = 'https://calendar.webcindario.com/calendar.php';
-		let formData = new FormData();
-		formData.append('upload', 'i3bgYzH!hGoDb?WQZeD&N');
-		formData.append('episodes', JSON.stringify(arr_upload));
-	
-		fetch(url, {
-			method: 'POST',
-			body: formData,
-			mode: 'cors',
-			headers: {
-				'Accept': 'application/json',
-			}
-		})
-		.then(response => response.json())
-		.then(data => {
-			console.log('Response', data);
-			setCookie("errorUpload", data, 31);
-		})
-		.catch(err => {
-			console.log('Error', err);
-		});
-	}
+	return arr_upload;
 }
 
 function uploadEpisode(serie, title_episode) {
-	let title = document.querySelectorAll("[class*='CalendarHeader-titleDesktop']")[0];
+	let title = document.querySelector("[class*='CalendarHeader-titleDesktop']");
 	let p_serie = serie.parentElement;
 	if (title && p_serie) {
 		let p_p_serie = p_serie.parentElement;
 		if (p_p_serie) {
-			let week = p_p_serie.querySelectorAll("[class*='CalendarDay-dayOfMonth']")[0];
+			let week = p_p_serie.querySelector("[class*='CalendarDay-dayOfMonth']");
 			if (week) {
-				let air = serie.querySelectorAll("[class*='CalendarEvent-airTime']")[0];
+				let air = serie.querySelector("[class*='airTime']");
 				if (air) {
 					let air_splited = air.innerHTML.split(" - ");
 					let ini_splited = air_splited[0].split(":");
@@ -195,13 +206,13 @@ function formatFecha(week, title, h, m) {
 }
 
 function addFilmaffinity() {
-	let btns = document.querySelectorAll("[class*='DetailsLinks-links']")[0];
+	let btns = document.querySelector("[class*='DetailsLinks-links']");
 	if (btns) {
 		let a = btns.getElementsByTagName('a');
 		let pos = 2;
 		if (a.length >= pos) {
 			let tres = a[pos];
-			let title = document.querySelectorAll("[class*='Details-title']")[0];
+			let title = document.querySelector("[class*='Details-title']");
 			if (tres && title) {
 				let nom = title.innerText;
 				tres.getElementsByTagName('span')[0].innerText = "Filmaffinity";

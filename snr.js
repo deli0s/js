@@ -49,23 +49,26 @@ function exportCalendar() {
 
 	let arrEvents = getSeriesToUpload(series, anime);
 	let arrGroup = getSeriesToUpload(seriesGroup, anime);
-	arr_upload.concat(arrEvents);
-	arr_upload.concat(arrGroup);
+	arr_upload = arr_upload.concat(arrEvents);
+	arr_upload = arr_upload.concat(arrGroup);
 
 	if (arr_upload.length > 0) {
-		$.ajax({
-			url:  'https://calendar.webcindario.com/calendar.php',
-			data: { upload: 'i3bgYzH!hGoDb?WQZeD&N', episodes: JSON.stringify(arr_upload) },
-			type: "POST",
-            crossDomain: true,
-			dataType: 'json',
-			success: function(data) {
-				console.log('Response', data);
-				setCookie("errorUpload", data, 31);
+		fetch('https://calendar.webcindario.com/calendar.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
 			},
-			error: function(err) {
-				console.log('e', err);
-			}
+			body: JSON.stringify({ upload: 'i3bgYzH!hGoDb?WQZeD&N', episodes: arr_upload }),
+			mode: 'cors' // Enables cross-domain requests
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log('Response', data);
+			setCookie("errorUpload", data, 31);
+		})
+		.catch(err => {
+			console.log('e', err);
+			setCookie("notUpload", err, 31);
 		});
 	}
 }
@@ -116,9 +119,8 @@ function getSeriesToUpload(series, anime) {
 			newDiv.style.marginTop = "30px";
 			newDiv.style.top = "0";
 			newDiv.style.right = "0";
-			newDiv.innerHTML = `<a style="text-decoration: none;" href="https://Aniwave.to/filter?keyword=${title.replaceAll(' ', '+')}&country%5B%5D=120822&type%5B%5D=tv&status%5B%5D=releasing&sort=most_relevance">🔗</a>`;
+			newDiv.innerHTML = `<a style="text-decoration: none;" href="https://aniwave.lv/filter?keyword=${title.replaceAll(' ', '+')}&country%5B%5D=120822&type%5B%5D=tv&status%5B%5D=releasing&sort=most_relevance">🔗</a>`;
 			serie.appendChild(newDiv);
-			//serie.outerHTML+=`</div><div style="display: inline; position: absolute; cursor: pointer; margin-top: 30px;"><a style="text-decoration: none;" href="https://Aniwave.to/filter?keyword=${title.replaceAll(' ', '+')}&country%5B%5D=120822&type%5B%5D=tv&status%5B%5D=releasing&sort=most_relevance">🔗</a>`;
 		}
 	}
 

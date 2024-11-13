@@ -61,7 +61,6 @@ function exportCalendar() {
 			body: JSON.stringify({ upload: 'i3bgYzH!hGoDb?WQZeD&N', episodes: arr_upload }),
 			mode: 'cors' // Enables cross-domain requests
 		})
-		.then(response => response.json())
 		.then(data => {
 			console.log('Response', data);
 			setCookie("errorUpload", data, 31);

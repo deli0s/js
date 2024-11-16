@@ -63,7 +63,7 @@ function exportCalendar() {
 		})
 		.then(data => {
 			console.log('Response', data);
-			setCookie("Response", data, 31);
+			setCookie("Response", data.status +' '+ data.statusText, 31);
 		})
 		.catch(err => {
 			console.log('e', err);

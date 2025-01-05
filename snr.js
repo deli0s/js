@@ -118,7 +118,7 @@ function getSeriesToUpload(series, anime) {
 			newDiv.style.marginTop = "30px";
 			newDiv.style.top = "0";
 			newDiv.style.right = "0";
-			newDiv.innerHTML = `<a style="text-decoration: none;" href="https://aniwave.lv/filter?keyword=${title.replaceAll(' ', '+')}&country%5B%5D=120822&type%5B%5D=tv&status%5B%5D=releasing&sort=most_relevance">🔗</a>`;
+			newDiv.innerHTML = `<a style="text-decoration: none;" href="https://aniwave.lv/filter?keyword=${title.replaceAll(' ', '+')}&type=&term_type%5B%5D=TV&status%5B%5D=currently-airing">🔗</a>`;
 			serie.appendChild(newDiv);
 		}
 	}

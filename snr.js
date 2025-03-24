@@ -259,14 +259,14 @@ function toggleDivWeek(i, display) {
 
 function toggleWeek(e, week_id) {
     e.innerText = "🔎";
+	let weeknum = e.getAttribute("weeknum");
 	let toggle = "none";
-	let c = getCookie(week_id)
+	let c = getCookie(week_id + "_" + weeknum)
 	if (c && c == "none") {
 		toggle = "block";
         e.innerText = "👁️";
 	}
 
-	let weeknum = e.getAttribute("weeknum");
 	toggleDivWeek(weeknum, toggle);
 	setCookie(week_id + "_" + weeknum, toggle, 31);
 }

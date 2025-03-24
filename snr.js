@@ -25,7 +25,7 @@ function addToggler() {
 			if (week_toggler && week_toggler.length == 0) {
 				let week_id = title.innerText + "_" + week.innerText;
 				let emoji = "👁️";
-				let c = getCookie(week_id);
+				let c = getCookie(week_id + "_" + weeknum);
 				if (c && c == "none") {
 					emoji = "🔎";
 					toggleDivWeek(i, "none");
@@ -63,7 +63,7 @@ function exportCalendar() {
 		})
 		.then(data => {
 			console.log('Response', data);
-			setCookie("Response", data.status +' '+ data.statusText, 31);
+			setCookie("Response", data.status + ' ' + data.statusText, 31);
 		})
 		.catch(err => {
 			console.log('e', err);
@@ -266,6 +266,7 @@ function toggleWeek(e, week_id) {
         e.innerText = "👁️";
 	}
 
-	toggleDivWeek(e.getAttribute("weeknum"), toggle);
-	setCookie(week_id, toggle, 31);
+	let weeknum = e.getAttribute("weeknum");
+	toggleDivWeek(weeknum, toggle);
+	setCookie(week_id + "_" + weeknum, toggle, 31);
 }

@@ -25,7 +25,7 @@ function addToggler() {
 			if (week_toggler && week_toggler.length == 0) {
 				let week_id = title.innerText + "_" + week.innerText;
 				let emoji = "👁️";
-				let c = getCookie(week_id + "_" + weeknum);
+				let c = getCookie(week_id + "_" + i);
 				if (c && c == "none") {
 					emoji = "🔎";
 					toggleDivWeek(i, "none");

@@ -51,9 +51,9 @@ function addSearcher() {
 	let button = newBtn.querySelector('button');
 	link = document.createElement('a');
 	link.className = button.className;
-	link.href = 'https://1337x.to/search/' + url;
+	link.href = 'https://1337x.to/search/' + url + '/1/';
 	link.target = '_blank';
-	link.innerHTML = '<img alt="logo" src="https://1337x.to/images/logo.svg"> 1337x.to';
+	link.innerHTML = '<img alt="logo" style="max-height: 20px;" src="https://1337x.to/images/logo.svg"> 1337x.to';
 	button.replaceWith(link);
 
 	parentBtn.appendChild(newBtn);

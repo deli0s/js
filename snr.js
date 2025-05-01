@@ -7,12 +7,77 @@ function doSomething() {
 	if (url.includes("/calendar")) {
 		addToggler();
 		exportCalendar();
+		addSearcher();
 	}
 	
 	let links = document.querySelector("[class*='Details-links']");
 	if (links) {
 		links.addEventListener("mouseover", addFilmaffinity);
 	}
+}
+
+function addSearcher() {
+	let btnSearch = document.querySelector("[class*='EpisodeDetailsModalContent-tabs'] [class*='EpisodeSearch-buttonContainer']");
+	if (!btnSearch) {
+		return;
+	}
+
+	let parentBtn = btnSearch.parentElement;
+	if (!parentBtn) {
+		console.log("no parentBtn de btnSearch")
+		return;
+	}
+
+	let mySearchBtn = parentBtn.querySelector(".mySearchBtn");
+	if (mySearchBtn) {
+		return;
+	}
+
+	let header = document.querySelector("[class*='ModalHeader-modalHeader']");
+	if (!header) {
+		console.log("no ModalHeader")
+		return;
+	}
+
+	let header_txt = header.innerText + "-";
+	let splited = header_txt.split("-");
+
+	let txt = splited[0] + " " + formatEp(splited[1]);
+	let url = txt.replaceAll(" ", "+");
+
+	let newBtn = btnSearch.cloneNode(true);
+	newBtn.classList.add('mySearchBtn');
+
+	let button = newBtn.querySelector('button');
+	link = document.createElement('a');
+	link.className = button.className;
+	link.href = 'https://1337x.to/search/' + url;
+	link.target = '_blank';
+	link.innerHTML = '<img alt="logo" src="https://1337x.to/images/logo.svg"> 1337x.to';
+	button.replaceWith(link);
+
+	parentBtn.appendChild(newBtn);
+}
+
+function formatEp(txt) {
+	let splited = txt.split("x");
+	if (!splited || splited.length != 2) {
+		return txt;
+	}
+
+	let season = splited[0];
+	let episode = splited[1];
+
+	if (season.length == 1) {
+		season = "0" + season;
+	}
+	
+	if (episode.length == 1) {
+		episode = "0" + episode;
+	}
+
+	let num = "S" + season + "E" + episode;
+	return num;
 }
 
 function addToggler() {
@@ -264,7 +329,7 @@ function toggleWeek(e, week_id) {
 	let c = getCookie(week_id + "_" + weeknum)
 	if (c && c == "none") {
 		toggle = "block";
-        e.innerText = "👁️";
+		e.innerText = "👁️";
 	}
 
 	toggleDivWeek(weeknum, toggle);

@@ -183,7 +183,7 @@ function getSeriesToUpload(series, anime) {
 			newDiv.style.marginTop = "30px";
 			newDiv.style.top = "0";
 			newDiv.style.right = "0";
-			newDiv.innerHTML = `<a style="text-decoration: none;" href="https://hianime.bz/search?keyword=${title.replaceAll(' ', '+')}">🔗</a>`;
+			newDiv.innerHTML = `<a style="text-decoration: none;" href="https://hianime.bz/search?keyword=${title.replaceAll(' ', '+')}&status=2&sort=default">🔗</a>`;
 			serie.appendChild(newDiv);
 		}
 	}

@@ -3,6 +3,10 @@ function edit(){
 		let Button = document.querySelector('.ipc-page-section button');
 		if (Button){
 			let TitleText = document.getElementsByTagName("h1")[0];
+			let path = window.location.pathname;
+			if (path.includes("episodes") || path.includes("fullcredits")) {
+				TitleText = document.getElementsByTagName("h2")[0];
+			}
 			
 			if (TitleText){
 				let title = TitleText.innerText;

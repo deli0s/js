@@ -7,56 +7,12 @@ function doSomething() {
 	if (url.includes("/calendar")) {
 		addToggler();
 		exportCalendar();
-		addSearcher();
 	}
 	
 	let links = document.querySelector("[class*='Details-links']");
 	if (links) {
 		links.addEventListener("mouseover", addFilmaffinity);
 	}
-}
-
-function addSearcher() {
-	let btnSearch = document.querySelector("[class*='EpisodeDetailsModalContent-tabs'] [class*='EpisodeSearch-buttonContainer']");
-	if (!btnSearch) {
-		return;
-	}
-
-	let parentBtn = btnSearch.parentElement;
-	if (!parentBtn) {
-		console.log("no parentBtn de btnSearch")
-		return;
-	}
-
-	let mySearchBtn = parentBtn.querySelector(".mySearchBtn");
-	if (mySearchBtn) {
-		return;
-	}
-
-	let header = document.querySelector("[class*='ModalHeader-modalHeader']");
-	if (!header) {
-		console.log("no ModalHeader")
-		return;
-	}
-
-	let header_txt = header.innerText + "-";
-	let splited = header_txt.split("-");
-
-	let txt = splited[0] + " " + formatEp(splited[1]);
-	let url = txt.replaceAll(" ", "+");
-
-	let newBtn = btnSearch.cloneNode(true);
-	newBtn.classList.add('mySearchBtn');
-
-	let button = newBtn.querySelector('button');
-	link = document.createElement('a');
-	link.className = button.className;
-	link.href = 'https://1337x.to/search/' + url + '/1/';
-	link.target = '_blank';
-	link.innerHTML = '<img alt="logo" style="max-height: 20px;" src="https://1337x.to/images/logo.svg"> 1337x.to';
-	button.replaceWith(link);
-
-	parentBtn.appendChild(newBtn);
 }
 
 function formatEp(txt) {
